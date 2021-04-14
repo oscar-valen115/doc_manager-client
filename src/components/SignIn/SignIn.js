@@ -33,7 +33,7 @@ class SignIn extends Component {
         message: messages.signInSuccess,
         variant: 'success'
       }))
-      .then(() => history.push('/'))
+      .then(() => history.push('/home'))
       .catch(error => {
         this.setState({ email: '', password: '' })
         msgAlert({
@@ -80,6 +80,9 @@ class SignIn extends Component {
             >
               Submit
             </Button>
+            <p className="forgot-password text-right">
+                  Not registered? <a href="#/sign-up">Sign Up</a>
+            </p>
           </Form>
         </div>
       </div>
