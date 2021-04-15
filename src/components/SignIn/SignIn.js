@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-
 import { signIn } from '../../api/auth'
 import messages from '../AutoDismissAlert/messages'
-
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-
+import { getPatientsFromApi } from '../../api/patient'
 class SignIn extends Component {
   constructor (props) {
     super(props)
@@ -24,7 +22,7 @@ class SignIn extends Component {
   onSignIn = event => {
     event.preventDefault()
 
-    const { msgAlert, history, setUser } = this.props
+    const { msgAlert, history, setUser, getUserTokenFromApp, setPatientState } = this.props
 
     signIn(this.state)
       .then(res => setUser(res.data.user))
@@ -33,7 +31,14 @@ class SignIn extends Component {
         message: messages.signInSuccess,
         variant: 'success'
       }))
-      .then(() => history.push('/home'))
+      .then(() => {
+        return getPatientsFromApi(getUserTokenFromApp())
+      })
+      .then(patients => {
+        console.log('response data after patient call: ', patients)
+        setPatientState(patients)
+      })
+      .then(() => history.push('/'))
       .catch(error => {
         this.setState({ email: '', password: '' })
         msgAlert({
