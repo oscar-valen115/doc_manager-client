@@ -9,18 +9,34 @@ import SignUp from './components/SignUp/SignUp'
 import SignIn from './components/SignIn/SignIn'
 import SignOut from './components/SignOut/SignOut'
 import ChangePassword from './components/ChangePassword/ChangePassword'
+// import HomePage from './components/HomePage/HomePage'
+import Patients from './components/Patients/Patients'
+import { getPatientsFromApi } from './api/patient'
 
 class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
       user: null,
-      msgAlerts: []
+      msgAlerts: [],
+      patients: [],
+      appointments: null
+    }
+  }
+
+  componentDidMount () {
+    if (this.state.user) {
+      getPatientsFromApi(this.state.user.token)
+        .then(response => {
+          console.log('patient data from api: ', response)
+          return response
+        })
+        .then(response => this.setPatientState(response))
+        .then(() => console.log('after setting patient state: ', this.state.patients))
     }
   }
 
   setUser = user => this.setState({ user })
-
   clearUser = () => this.setState({ user: null })
 
   deleteAlert = (id) => {
@@ -36,8 +52,12 @@ class App extends Component {
     })
   }
 
+  setPatientState = (response) => this.setState({ patients: response.data.patients })
+
+  getUserTokenFromApp = () => this.state.user.token
+
   render () {
-    const { msgAlerts, user } = this.state
+    const { msgAlerts, user, patients } = this.state
 
     return (
       <Fragment>
@@ -53,21 +73,60 @@ class App extends Component {
           />
         ))}
         <main className="container">
-          <Route path='/sign-up' render={() => (
-            <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
-          )} />
-          <Route path='/sign-in' render={() => (
-            <SignIn msgAlert={this.msgAlert} setUser={this.setUser} />
-          )} />
+          <Route
+            path='/sign-up'
+            render={() => (
+              <SignUp
+                msgAlert={this.msgAlert}
+                setUser={this.setUser} />
+            )}/>
+          {/* <Route exact path='/' render={() => (
+            <HomePage
+              handleAddProductEvent={this.handleAddProductEvent}
+              user={user}
+              patients={patients}
+              handleDeleteOrderItem={this.handleDeleteOrderItem}
+            />
+          )}/> */}
+          <Route
+            path='/sign-in'
+            render={() => (
+              <SignIn
+                msgAlert={this.msgAlert}
+                setUser={this.setUser}
+                getUserTokenFromApp={this.getUserTokenFromApp}
+                setPatientState={this.setPatientState}
+              />
+            )} />
           {/* <AuthenticatedRoute user={user} path='/home' render={() => (
             <SignOut msgAlert={this.msgAlert} clearUser={this.clearUser} user={user} />
           )} /> */}
-          <AuthenticatedRoute user={user} path='/sign-out' render={() => (
-            <SignOut msgAlert={this.msgAlert} clearUser={this.clearUser} user={user} />
-          )} />
-          <AuthenticatedRoute user={user} path='/change-password' render={() => (
-            <ChangePassword msgAlert={this.msgAlert} user={user} />
-          )} />
+          <AuthenticatedRoute
+            user={user}
+            path='/sign-out'
+            render={() => (
+              <SignOut
+                msgAlert={this.msgAlert}
+                clearUser={this.clearUser}
+                user={user} />
+            )} />
+          <AuthenticatedRoute
+            user={user}
+            path='/change-password'
+            render={() => (
+              <ChangePassword
+                msgAlert={this.msgAlert}
+                user={user} />
+            )} />
+          <AuthenticatedRoute
+            user={user}
+            path='/patients'
+            render={() => (
+              <Patients
+                msgAlert={this.msgAlert}
+                user={user}
+                patients={patients} />
+            )} />
         </main>
       </Fragment>
     )
