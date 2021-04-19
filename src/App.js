@@ -59,6 +59,8 @@ class App extends Component {
   }
 
   setPatientState = (response) => this.setState({ patients: response.data.patients })
+  // setPatient = (response) => this.setState({ patient })
+  setDoctorState = (response) => this.setState({ doctors: response.data.doctors })
   getUserTokenFromApp = () => this.state.user.token
 
   render () {
@@ -98,6 +100,7 @@ class App extends Component {
                 user={user}
                 patients={patients}
                 appointments={appointments}
+                doctors={doctors}
               />
             )}/>
           <Route
@@ -108,11 +111,9 @@ class App extends Component {
                 setUser={this.setUser}
                 getUserTokenFromApp={this.getUserTokenFromApp}
                 setPatientState={this.setPatientState}
+                setDoctorState={this.setDoctorState}
               />
             )} />
-          {/* <AuthenticatedRoute user={user} path='/home' render={() => (
-            <SignOut msgAlert={this.msgAlert} clearUser={this.clearUser} user={user} />
-          )} /> */}
           <AuthenticatedRoute
             user={user}
             path='/sign-out'

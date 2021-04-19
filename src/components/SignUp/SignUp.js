@@ -93,6 +93,9 @@ class SignUp extends Component {
             >
               Submit
             </Button>
+            <p className="forgot-password text-right">
+                  Already registered? <a href="#/sign-in">Sign In</a>
+            </p>
           </Form>
         </div>
       </div>

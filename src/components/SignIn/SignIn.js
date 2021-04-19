@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import styled from 'styled-components'
 import { getPatientsFromApi } from '../../api/patient'
+import { getDoctorsFromApi } from '../../api/doctor'
 class SignIn extends Component {
   constructor (props) {
     super(props)
@@ -27,7 +28,8 @@ class SignIn extends Component {
       history,
       setUser,
       getUserTokenFromApp,
-      setPatientState
+      setPatientState,
+      setDoctorState
     } = this.props
 
     signIn(this.state)
@@ -39,6 +41,8 @@ class SignIn extends Component {
       }))
       .then(() => getPatientsFromApi(getUserTokenFromApp()))
       .then(patients => setPatientState(patients))
+      .then(() => getDoctorsFromApi(getUserTokenFromApp()))
+      .then(doctors => setDoctorState(doctors))
       .then(() => history.push('/'))
       .catch(error => {
         this.setState({ email: '', password: '' })
