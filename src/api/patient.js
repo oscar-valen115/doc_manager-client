@@ -42,3 +42,14 @@ export const deletePatient = (patientId, token) => {
     }
   })
 }
+
+export const updatePatient = (patientId, token) => {
+  return axios({
+    url: `${apiUrl}/patients/${patientId}`,
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Token ${token}`
+    },
+    data: {}
+  })
+}

@@ -13,6 +13,8 @@ import Patients from './components/Patients/Patients'
 import CreatePatient from './components/Patients/CreatePatient'
 import Appointments from './components/Appointments/Appointments'
 import CreateAppointment from './components/Appointments/CreateAppointment'
+import CreateDoctor from './components/Doctor/CreateDoctor'
+import Doctors from './components/Doctor/Doctors'
 
 class App extends Component {
   constructor (props) {
@@ -60,7 +62,7 @@ class App extends Component {
 
   setPatientState = (response) => this.setState({ patients: response.data.patients })
   // setPatient = (response) => this.setState({ patient })
-  setDoctorState = (response) => this.setState({ doctors: response.data.doctors })
+  setDoctorsState = (response) => this.setState({ doctors: response.data.doctors })
   getUserTokenFromApp = () => this.state.user.token
 
   render () {
@@ -111,7 +113,7 @@ class App extends Component {
                 setUser={this.setUser}
                 getUserTokenFromApp={this.getUserTokenFromApp}
                 setPatientState={this.setPatientState}
-                setDoctorState={this.setDoctorState}
+                setDoctorsState={this.setDoctorsState}
               />
             )} />
           <AuthenticatedRoute
@@ -134,6 +136,15 @@ class App extends Component {
           <AuthenticatedRoute
             user={user}
             path='/patients'
+            render={() => (
+              <Patients
+                msgAlert={this.msgAlert}
+                user={user}
+                patients={patients} />
+            )} />
+          <AuthenticatedRoute
+            user={user}
+            path='/patients/:patientId'
             render={() => (
               <Patients
                 msgAlert={this.msgAlert}
@@ -169,6 +180,30 @@ class App extends Component {
                 user={user}
                 patients={patients}
                 appointments={appointments} />
+            )} />
+          <AuthenticatedRoute
+            user={user}
+            path='/doctors'
+            render={() => (
+              <Doctors
+                msgAlert={this.msgAlert}
+                getUserTokenFromApp={this.getUserTokenFromApp}
+                setDoctorsState={this.setDoctorsState}
+                user={user}
+                patients={patients}
+                doctors={doctors} />
+            )} />
+          <AuthenticatedRoute
+            user={user}
+            path='/create-doctor'
+            render={() => (
+              <CreateDoctor
+                msgAlert={this.msgAlert}
+                getUserTokenFromApp={this.getUserTokenFromApp}
+                setDoctorsState={this.setDoctorsState}
+                user={user}
+                patients={patients}
+                doctors={doctors} />
             )} />
         </main>
       </Fragment>
