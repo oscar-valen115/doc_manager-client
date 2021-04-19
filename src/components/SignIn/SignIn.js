@@ -29,7 +29,7 @@ class SignIn extends Component {
       setUser,
       getUserTokenFromApp,
       setPatientState,
-      setDoctorState
+      setDoctorsState
     } = this.props
 
     signIn(this.state)
@@ -42,7 +42,7 @@ class SignIn extends Component {
       .then(() => getPatientsFromApi(getUserTokenFromApp()))
       .then(patients => setPatientState(patients))
       .then(() => getDoctorsFromApi(getUserTokenFromApp()))
-      .then(doctors => setDoctorState(doctors))
+      .then(doctors => setDoctorsState(doctors))
       .then(() => history.push('/'))
       .catch(error => {
         this.setState({ email: '', password: '' })

@@ -13,6 +13,8 @@ export const getDoctorsFromApi = token => {
 }
 
 export const createDoctor = (data, user) => {
+  console.log('data info: ', data)
+  console.log('user info: ', user)
   return axios({
     url: apiUrl + '/doctors/',
     method: 'POST',
@@ -26,6 +28,16 @@ export const createDoctor = (data, user) => {
         last_name: data.lastName,
         specialty: data.specialty
       }
+    }
+  })
+}
+
+export const deleteDoctor = (doctorId, user) => {
+  return axios({
+    url: apiUrl + `/doctors/${doctorId}`,
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Token ${user.token}`
     }
   })
 }
