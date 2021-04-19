@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react'
-import { Route } from 'react-router-dom'
+import { Route, withRouter } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
-
 import AuthenticatedRoute from './components/AuthenticatedRoute/AuthenticatedRoute'
 import AutoDismissAlert from './components/AutoDismissAlert/AutoDismissAlert'
 import Header from './components/Header/Header'
@@ -9,9 +8,11 @@ import SignUp from './components/SignUp/SignUp'
 import SignIn from './components/SignIn/SignIn'
 import SignOut from './components/SignOut/SignOut'
 import ChangePassword from './components/ChangePassword/ChangePassword'
-// import HomePage from './components/HomePage/HomePage'
+import HomePage from './components/HomePage/HomePage'
 import Patients from './components/Patients/Patients'
-import { getPatientsFromApi } from './api/patient'
+import CreatePatient from './components/Patients/CreatePatient'
+import Appointments from './components/Appointments/Appointments'
+import CreateAppointment from './components/Appointments/CreateAppointment'
 
 class App extends Component {
   constructor (props) {
@@ -20,11 +21,17 @@ class App extends Component {
       user: null,
       msgAlerts: [],
       patients: [],
-      appointments: null
+      appointments: [],
+      doctors: []
     }
   }
 
   componentDidMount () {
+    // if (!this.state.user) {
+    //   return <Redirect to='/sign-in' />
+    // }
+
+    /**
     if (this.state.user) {
       getPatientsFromApi(this.state.user.token)
         .then(response => {
@@ -34,17 +41,16 @@ class App extends Component {
         .then(response => this.setPatientState(response))
         .then(() => console.log('after setting patient state: ', this.state.patients))
     }
+    */
   }
 
   setUser = user => this.setState({ user })
   clearUser = () => this.setState({ user: null })
-
   deleteAlert = (id) => {
     this.setState((state) => {
       return { msgAlerts: state.msgAlerts.filter(msg => msg.id !== id) }
     })
   }
-
   msgAlert = ({ heading, message, variant }) => {
     const id = uuid()
     this.setState((state) => {
@@ -53,11 +59,16 @@ class App extends Component {
   }
 
   setPatientState = (response) => this.setState({ patients: response.data.patients })
-
   getUserTokenFromApp = () => this.state.user.token
 
   render () {
-    const { msgAlerts, user, patients } = this.state
+    const {
+      msgAlerts,
+      user,
+      patients,
+      appointments,
+      doctors
+    } = this.state
 
     return (
       <Fragment>
@@ -80,14 +91,15 @@ class App extends Component {
                 msgAlert={this.msgAlert}
                 setUser={this.setUser} />
             )}/>
-          {/* <Route exact path='/' render={() => (
-            <HomePage
-              handleAddProductEvent={this.handleAddProductEvent}
-              user={user}
-              patients={patients}
-              handleDeleteOrderItem={this.handleDeleteOrderItem}
-            />
-          )}/> */}
+          <Route
+            exact path='/'
+            render={() => (
+              <HomePage
+                user={user}
+                patients={patients}
+                appointments={appointments}
+              />
+            )}/>
           <Route
             path='/sign-in'
             render={() => (
@@ -127,10 +139,40 @@ class App extends Component {
                 user={user}
                 patients={patients} />
             )} />
+          <AuthenticatedRoute
+            user={user}
+            path='/create-patient'
+            render={() => (
+              <CreatePatient
+                msgAlert={this.msgAlert}
+                user={user}
+                patients={patients}
+                doctors={doctors} />
+            )} />
+          <AuthenticatedRoute
+            user={user}
+            path='/appointments'
+            render={() => (
+              <Appointments
+                msgAlert={this.msgAlert}
+                user={user}
+                patients={patients}
+                appointments={appointments} />
+            )} />
+          <AuthenticatedRoute
+            user={user}
+            path='/create-appointment'
+            render={() => (
+              <CreateAppointment
+                msgAlert={this.msgAlert}
+                user={user}
+                patients={patients}
+                appointments={appointments} />
+            )} />
         </main>
       </Fragment>
     )
   }
 }
 
-export default App
+export default withRouter(App)

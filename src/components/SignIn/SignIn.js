@@ -4,6 +4,7 @@ import { signIn } from '../../api/auth'
 import messages from '../AutoDismissAlert/messages'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import styled from 'styled-components'
 import { getPatientsFromApi } from '../../api/patient'
 class SignIn extends Component {
   constructor (props) {
@@ -22,7 +23,12 @@ class SignIn extends Component {
   onSignIn = event => {
     event.preventDefault()
 
-    const { msgAlert, history, setUser, getUserTokenFromApp, setPatientState } = this.props
+    const { msgAlert,
+      history,
+      setUser,
+      getUserTokenFromApp,
+      setPatientState
+    } = this.props
 
     signIn(this.state)
       .then(res => setUser(res.data.user))
@@ -31,13 +37,8 @@ class SignIn extends Component {
         message: messages.signInSuccess,
         variant: 'success'
       }))
-      .then(() => {
-        return getPatientsFromApi(getUserTokenFromApp())
-      })
-      .then(patients => {
-        console.log('response data after patient call: ', patients)
-        setPatientState(patients)
-      })
+      .then(() => getPatientsFromApi(getUserTokenFromApp()))
+      .then(patients => setPatientState(patients))
       .then(() => history.push('/'))
       .catch(error => {
         this.setState({ email: '', password: '' })
@@ -79,12 +80,12 @@ class SignIn extends Component {
                 onChange={this.handleChange}
               />
             </Form.Group>
-            <Button
+            <StyledButton
               variant="primary"
               type="submit"
             >
               Submit
-            </Button>
+            </StyledButton>
             <p className="forgot-password text-right">
                   Not registered? <a href="#/sign-up">Sign Up</a>
             </p>
@@ -94,5 +95,12 @@ class SignIn extends Component {
     )
   }
 }
+
+const StyledButton = styled(Button)`
+ background-color: #00bd9c;
+`
+// const StyledForm = styled(Form)`
+//   background-color: #dde5ee;
+// `
 
 export default withRouter(SignIn)
