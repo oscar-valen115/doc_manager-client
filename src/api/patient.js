@@ -12,7 +12,9 @@ export const getPatientsFromApi = token => {
   })
 }
 
-export const createPatient = (passwords, user) => {
+export const createPatient = (data, user) => {
+  console.log('data value: ', data)
+  console.log('user values: ', user)
   return axios({
     url: apiUrl + '/patients/',
     method: 'POST',
@@ -21,9 +23,22 @@ export const createPatient = (passwords, user) => {
     },
     data: {
       patient: {
-        old: passwords.oldPassword,
-        new: passwords.newPassword
+        email: data.email,
+        first_name: data.firstName,
+        last_name: data.lastName,
+        dob: data.dob,
+        assigned_doctor: data.assignedDoctor
       }
+    }
+  })
+}
+
+export const deletePatient = (patientId, token) => {
+  return axios({
+    url: apiUrl + `/patients/${patientId}`,
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Token ${token}`
     }
   })
 }

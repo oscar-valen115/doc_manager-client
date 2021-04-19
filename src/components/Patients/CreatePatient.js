@@ -4,86 +4,121 @@ import { withRouter } from 'react-router-dom'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import styled from 'styled-components'
+import { createPatient } from '../../api/patient'
+
 class CreatePatient extends Component {
   constructor (props) {
     super(props)
 
     this.state = {
       email: '',
-      password: ''
+      firstName: '',
+      lastName: '',
+      dob: '',
+      assignedDoctor: ''
     }
   }
 
-  // handleChange = event => this.setState({
-  //   [event.target.name]: event.target.value
-  // })
+  handleChange = event => this.setState({
+    [event.target.name]: event.target.value
+  })
 
-  // onSignIn = event => {
-  //   event.preventDefault()
+  onCreatePatient = event => {
+    event.preventDefault()
 
-  //   const { msgAlert,
-  //     history,
-  //     setUser,
-  //     getUserTokenFromApp,
-  //     setPatientState
-  //   } = this.props
+    const {
+      msgAlert,
+      history,
+      setPatientState,
+      getPatientsFromApi,
+      getUserTokenFromApp,
+      user,
+      messages
+    } = this.props
 
-  //   signIn(this.state)
-  //     .then(res => setUser(res.data.user))
-  //     .then(() => msgAlert({
-  //       heading: 'Sign In Success',
-  //       message: messages.signInSuccess,
-  //       variant: 'success'
-  //     }))
-  //     .then(() => getPatientsFromApi(getUserTokenFromApp()))
-  //     .then(patients => setPatientState(patients))
-  //     .then(() => history.push('/'))
-  //     .catch(error => {
-  //       this.setState({ email: '', password: '' })
-  //       msgAlert({
-  //         heading: 'Sign In Failed with error: ' + error.message,
-  //         message: messages.signInFailure,
-  //         variant: 'danger'
-  //       })
-  //     })
-  // }
+    createPatient(this.state, user)
+      .then(response => {
+        console.log('response data: ', response)
+        console.log('user data: ', user)
+        return response
+      })
+      .then(() => msgAlert({
+        heading: 'Created Patient Successfully',
+        message: messages.signInSuccess,
+        variant: 'success'
+      }))
+      .then(() => getPatientsFromApi(getUserTokenFromApp()))
+      .then(patients => setPatientState(patients))
+      .then(() => history.push('/'))
+      .catch(error => {
+        this.setState({ email: '', firstName: '', lastName: '', dob: '', assignedDoctor: '' })
+        msgAlert({
+          heading: ' Failed to create a patient, with error: ' + error.message,
+          variant: 'danger'
+        })
+      })
+  }
 
   render () {
+    const { email, firstName, lastName, dob, assignedDoctor } = this.state
+
     return (
       <div className="row">
         <div className="col-sm-10 col-md-8 mx-auto mt-5">
           <h3>Create New Patient</h3>
-          <Form>
-            <Form.Group>
+          <Form onSubmit={this.onCreatePatient}>
+            <Form.Group controlId="email">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                required
+                type="email"
+                name="email"
+                value={email}
+                placeholder="Enter First Name"
+                onChange={this.handleChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="firstName">
               <Form.Label>First Name</Form.Label>
               <Form.Control
-                // required
+                required
                 type="text"
                 name="firstName"
-                // value={email}
+                value={firstName}
                 placeholder="Enter First Name"
-                // onChange={this.handleChange}
+                onChange={this.handleChange}
               />
             </Form.Group>
-            <Form.Group>
+            <Form.Group controlId="lastName">
               <Form.Label>Last Name</Form.Label>
               <Form.Control
-                // required
+                required
                 name="lastName"
-                // value={password}
-                type="password"
+                value={lastName}
+                type="text"
                 placeholder="Enter Last Name"
-                // onChange={this.handleChange}
+                onChange={this.handleChange}
               />
             </Form.Group>
-            <Form.Group>
-              <Form.Label>Assigned Doctor</Form.Label>
+            <Form.Group controlId="dob">
+              <Form.Label>Date Of Birth</Form.Label>
+              <Form.Control
+                required
+                name="dob"
+                value={dob}
+                type="text"
+                placeholder="Enter Date of Birth"
+                onChange={this.handleChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="assignedDoctor">
+              <Form.Label>Assign a Doctor</Form.Label>
               <Form.Control
                 type="text"
                 name="assignedDoctor"
-                // value={email}
+                value={assignedDoctor}
                 placeholder="Enter Their Doctor"
-                // onChange={this.handleChange}
+                onChange={this.handleChange}
               />
             </Form.Group>
             <StyledButton
