@@ -2,9 +2,12 @@ import React, { Component, Fragment } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import Table from 'react-bootstrap/Table'
 // import ButtonGroup from 'react-bootstrap/ButtonGroup'
-// import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button'
 
 class Patients extends Component {
+  onDeletePatient = event => {
+    event.preventDefault()
+  }
   render () {
     const { patients } = this.props
     console.log('patients prop data: ', patients)
@@ -20,7 +23,12 @@ class Patients extends Component {
             <td>{patient.assigned_doctor}</td>
             <td>
               <Link to={`/patients/${patient.id}`}>View Profile</Link>
-              <Link to={`/patients/${patient.id}`}>Delete Patient</Link>
+              <Button
+                variant='danger'
+                onClick={this.onDeletePatient}
+              >
+                Delete Patient
+              </Button>
             </td>
           </tr>
         </Fragment>

@@ -25,7 +25,7 @@ class CreateAppointment extends Component {
                 type="text"
                 name="firstName"
                 // value={email}
-                placeholder="Enter First Name"
+                placeholder="Month"
                 // onChange={this.handleChange}
               />
             </Form.Group>
@@ -36,7 +36,7 @@ class CreateAppointment extends Component {
                 name="lastName"
                 // value={password}
                 type="password"
-                placeholder="Enter Last Name"
+                placeholder="Day"
                 // onChange={this.handleChange}
               />
             </Form.Group>
@@ -46,7 +46,7 @@ class CreateAppointment extends Component {
                 type="text"
                 name="assignedDoctor"
                 // value={email}
-                placeholder="Enter Their Doctor"
+                placeholder="Time"
                 // onChange={this.handleChange}
               />
             </Form.Group>
@@ -68,3 +68,16 @@ const StyledButton = styled(Button)`
 `
 
 export default withRouter(CreateAppointment)
+/*
+<Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
+  <Tab eventKey="home" title="Home">
+    <Sonnet />
+  </Tab>
+  <Tab eventKey="profile" title="Profile">
+    <Sonnet />
+  </Tab>
+  <Tab eventKey="contact" title="Contact" disabled>
+    <Sonnet />
+  </Tab>
+</Tabs>
+*/
