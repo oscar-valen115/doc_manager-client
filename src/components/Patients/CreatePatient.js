@@ -32,8 +32,7 @@ class CreatePatient extends Component {
       setPatientState,
       getPatientsFromApi,
       getUserTokenFromApp,
-      user,
-      messages
+      user
     } = this.props
 
     createPatient(this.state, user)
@@ -42,14 +41,14 @@ class CreatePatient extends Component {
         console.log('user data: ', user)
         return response
       })
-      .then(() => msgAlert({
-        heading: 'Created Patient Successfully',
-        message: messages.signInSuccess,
-        variant: 'success'
-      }))
+      .then(patients => setPatientState(patients))
       .then(() => getPatientsFromApi(getUserTokenFromApp()))
       .then(patients => setPatientState(patients))
       .then(() => history.push('/'))
+      .then(() => msgAlert({
+        heading: 'Created Patient Successfully',
+        variant: 'success'
+      }))
       .catch(error => {
         this.setState({ email: '', firstName: '', lastName: '', dob: '', assignedDoctor: '' })
         msgAlert({
