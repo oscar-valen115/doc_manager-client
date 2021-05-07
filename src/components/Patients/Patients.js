@@ -3,14 +3,29 @@ import { withRouter, Link } from 'react-router-dom'
 import Table from 'react-bootstrap/Table'
 // import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import Button from 'react-bootstrap/Button'
+import { deletePatient, getPatientsFromApi } from '../../api/patient'
 
 class Patients extends Component {
-  onDeletePatient = event => {
-    event.preventDefault()
-  }
   render () {
-    const { patients } = this.props
-    console.log('patients prop data: ', patients)
+    const { user, patients, setPatientState, msgAlert } = this.props
+    const handleDeletePatient = patientId => {
+      deletePatient(patientId, user.token)
+        .then(() => getPatientsFromApi(user.token))
+        .then((patients) => setPatientState(patients))
+        .then(() => msgAlert({
+          heading: 'Deleted Patient Successfully',
+          variant: 'success'
+        }))
+        .catch(error => {
+          msgAlert({
+            heading: ' Failed to delete a patient, with error: ' + error.message,
+            variant: 'danger'
+          })
+        })
+    }
+
+    // const handlePatientProfile = () => {}
+
     const patientsJsx = (
       patients.map(patient => (
         <Fragment key={patient.id}>
@@ -22,10 +37,15 @@ class Patients extends Component {
             <td>{patient.email}</td>
             <td>{patient.assigned_doctor}</td>
             <td>
-              <Link to={`/patients/${patient.id}`}>View Profile</Link>
+              <Link
+                to={`/patients/${patient.id}`}
+                // onClick={() => handlePatientProfile(patient.id)}
+              >
+                View Profile
+              </Link>
               <Button
                 variant='danger'
-                onClick={this.onDeletePatient}
+                onClick={() => handleDeletePatient(patient.id)}
               >
                 Delete Patient
               </Button>

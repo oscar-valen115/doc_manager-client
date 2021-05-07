@@ -10,6 +10,7 @@ import SignOut from './components/SignOut/SignOut'
 import ChangePassword from './components/ChangePassword/ChangePassword'
 import HomePage from './components/HomePage/HomePage'
 import Patients from './components/Patients/Patients'
+import PatientProfile from './components/Patients/PatientProfile'
 import CreatePatient from './components/Patients/CreatePatient'
 import Appointments from './components/Appointments/Appointments'
 import CreateAppointment from './components/Appointments/CreateAppointment'
@@ -61,7 +62,6 @@ class App extends Component {
   }
 
   setPatientState = (response) => this.setState({ patients: response.data.patients })
-  // setPatient = (response) => this.setState({ patient })
   setDoctorsState = (response) => this.setState({ doctors: response.data.doctors })
   getUserTokenFromApp = () => this.state.user.token
 
@@ -126,44 +126,49 @@ class App extends Component {
                 user={user} />
             )} />
           <AuthenticatedRoute
-            user={user}
             path='/change-password'
+            user={user}
             render={() => (
               <ChangePassword
                 msgAlert={this.msgAlert}
                 user={user} />
             )} />
           <AuthenticatedRoute
+            exact path='/patients'
             user={user}
-            path='/patients'
             render={() => (
               <Patients
                 msgAlert={this.msgAlert}
                 user={user}
-                patients={patients} />
+                patients={patients}
+                setPatientState={this.setPatientState} />
             )} />
           <AuthenticatedRoute
+            exact path='/patients/:patientId'
             user={user}
-            path='/patients/:patientId'
+            doctors={doctors}
             render={() => (
-              <Patients
+              <PatientProfile
                 msgAlert={this.msgAlert}
                 user={user}
-                patients={patients} />
+                patients={patients}
+                setPatientState={this.setPatientState}
+                setDoctorsState={this.setDoctorsState} />
             )} />
           <AuthenticatedRoute
-            user={user}
             path='/create-patient'
+            user={user}
             render={() => (
               <CreatePatient
                 msgAlert={this.msgAlert}
                 user={user}
                 patients={patients}
-                doctors={doctors} />
+                doctors={doctors}
+                setPatientState={this.setPatientState} />
             )} />
           <AuthenticatedRoute
-            user={user}
             path='/appointments'
+            user={user}
             render={() => (
               <Appointments
                 msgAlert={this.msgAlert}
@@ -172,8 +177,8 @@ class App extends Component {
                 appointments={appointments} />
             )} />
           <AuthenticatedRoute
-            user={user}
             path='/create-appointment'
+            user={user}
             render={() => (
               <CreateAppointment
                 msgAlert={this.msgAlert}
@@ -182,8 +187,8 @@ class App extends Component {
                 appointments={appointments} />
             )} />
           <AuthenticatedRoute
-            user={user}
             path='/doctors'
+            user={user}
             render={() => (
               <Doctors
                 msgAlert={this.msgAlert}
@@ -194,8 +199,8 @@ class App extends Component {
                 doctors={doctors} />
             )} />
           <AuthenticatedRoute
-            user={user}
             path='/create-doctor'
+            user={user}
             render={() => (
               <CreateDoctor
                 msgAlert={this.msgAlert}

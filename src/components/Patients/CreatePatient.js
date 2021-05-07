@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-// import messages from '../AutoDismissAlert/messages'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import styled from 'styled-components'
-import { createPatient } from '../../api/patient'
+import { createPatient, getPatientsFromApi } from '../../api/patient'
 
 class CreatePatient extends Component {
   constructor (props) {
@@ -30,21 +29,13 @@ class CreatePatient extends Component {
       msgAlert,
       history,
       setPatientState,
-      getPatientsFromApi,
-      getUserTokenFromApp,
       user
     } = this.props
 
     createPatient(this.state, user)
-      .then(response => {
-        console.log('response data: ', response)
-        console.log('user data: ', user)
-        return response
-      })
+      .then(() => getPatientsFromApi(user.token))
       .then(patients => setPatientState(patients))
-      .then(() => getPatientsFromApi(getUserTokenFromApp()))
-      .then(patients => setPatientState(patients))
-      .then(() => history.push('/'))
+      .then(() => history.push('/patients'))
       .then(() => msgAlert({
         heading: 'Created Patient Successfully',
         variant: 'success'
