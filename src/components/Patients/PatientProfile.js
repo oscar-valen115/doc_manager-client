@@ -105,12 +105,12 @@ class PatientProfile extends Component {
             </Form.Control>
           </Form.Group>
 
-          <Form.Group as={Col} controlId="zip_code">
+          {/* <Form.Group as={Col} controlId="zip_code">
             <Form.Label>Zip</Form.Label>
             <Form.Control
               name='zip_code'
               value={zip_code} />
-          </Form.Group>
+          </Form.Group> */}
         </Form.Row>
 
         <Form.Row>
