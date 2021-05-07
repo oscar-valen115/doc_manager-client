@@ -8,17 +8,17 @@ const authenticatedOptions = (
   <Fragment>
     <NavDropdown title="Patients" id="collasible-nav-dropdown">
       <NavDropdown.Item href="#patients">All Patients</NavDropdown.Item>
-      <NavDropdown.Item href="#admitted-patients">Admitted Patients</NavDropdown.Item>
+      {/* <NavDropdown.Item href="#admitted-patients">Admitted Patients</NavDropdown.Item> */}
       <NavDropdown.Item href="#create-patient">New Patient</NavDropdown.Item>
     </NavDropdown>
     <NavDropdown title="Doctors" id="collasible-nav-dropdown">
       <NavDropdown.Item href="#doctors">All Doctors</NavDropdown.Item>
       <NavDropdown.Item href="#create-doctor">New Doctor</NavDropdown.Item>
     </NavDropdown>
-    <NavDropdown title="Appointments" id="collasible-nav-dropdown">
+    {/* <NavDropdown title="Appointments" id="collasible-nav-dropdown">
       <NavDropdown.Item href="#appointments">All Appointments</NavDropdown.Item>
       <NavDropdown.Item href="#create-appointment">New Appointment</NavDropdown.Item>
-    </NavDropdown>
+    </NavDropdown> */}
     <NavDropdown title="Security" id="collasible-nav-dropdown">
       <NavDropdown.Item href="#change-password">Change Password</NavDropdown.Item>
       <NavDropdown.Item href="#sign-out">Sign Out</NavDropdown.Item>
