@@ -10,26 +10,25 @@ class PatientProfile extends Component {
     super(props)
 
     this.state = {
-      patient: {
-        email: '',
-        firstName: '',
-        lastName: '',
-        dob: '',
-        assignedDoctor: '',
-        streetAddress: '',
-        city: '',
-        allergies: ''
-      },
+      email: '',
+      firstName: '',
+      lastName: '',
+      dob: '',
+      assignedDoctor: '',
+      streetAddress: '',
+      city: '',
+      state: '',
+      allergies: '',
       updated: false
     }
   }
-
   handleChange = event => this.setState({
     [event.target.name]: event.target.value
   })
-  handleUpdatePatient = (patientId) => {
-    const { user, setPatientState, msgAlert } = this.props
-    updatePatient(patientId, user.token, this.state)
+  handleUpdatePatient = (event) => {
+    event.preventDefault()
+    const { user, setPatientState, msgAlert, match, history } = this.props
+    updatePatient(match.params.patientId, user, this.state)
       .then(() => getPatientsFromApi(user.token))
       .then(patients => setPatientState(patients))
       .then(() => history.push('/patients'))
@@ -47,7 +46,7 @@ class PatientProfile extends Component {
   }
 
   render () {
-    const { email, firstName, lastName, dob, streetAddress, city, allergies } = this.state
+    const { email, firstName, lastName, dob, streetAddress, city, allergies, state, assignedDoctor } = this.state
     const { patients, match } = this.props
     const filteredPatientData = patients.filter(patient => patient.id === parseInt(match.params.patientId))
     // const patientId = filteredPatientData[0].id
@@ -63,7 +62,7 @@ class PatientProfile extends Component {
               type="text"
               name='firstName'
               value={firstName}
-              placeholder={filteredPatientData[0].firstName}
+              placeholder={filteredPatientData[0].first_name}
               onChange={this.handleChange} />
           </Form.Group>
 
@@ -73,17 +72,17 @@ class PatientProfile extends Component {
               type="text"
               name='lastName'
               value={lastName}
-              placeholder={filteredPatientData[0].lastName}
+              placeholder={filteredPatientData[0].last_name}
               onChange={this.handleChange} />
           </Form.Group>
         </Form.Row>
 
         <Form.Group controlId="streetAddress">
-          <Form.Label>Address</Form.Label>
+          <Form.Label>Street Address</Form.Label>
           <Form.Control
             name='streetAddress'
             value={streetAddress}
-            placeholder={filteredPatientData[0].streetAddress}
+            placeholder={filteredPatientData[0].street_address}
             onChange={this.handleChange} />
         </Form.Group>
 
@@ -91,18 +90,21 @@ class PatientProfile extends Component {
           <Form.Group as={Col} controlId="city">
             <Form.Label>City</Form.Label>
             <Form.Control
+              type="text"
               name='city'
               value={city}
-              onChange={this.handleChange}
-            />
+              placeholder={filteredPatientData[0].city}
+              onChange={this.handleChange} />
           </Form.Group>
 
           <Form.Group as={Col} controlId="state">
             <Form.Label>State</Form.Label>
-            <Form.Control as="select" defaultValue="Choose...">
-              <option>Choose...</option>
-              <option>...</option>
-            </Form.Control>
+            <Form.Control
+              type="text"
+              name='state'
+              value={state}
+              placeholder={filteredPatientData[0].state}
+              onChange={this.handleChange} />
           </Form.Group>
 
           {/* <Form.Group as={Col} controlId="zip_code">
@@ -142,6 +144,15 @@ class PatientProfile extends Component {
               name='allergies'
               value={allergies}
               type="text" placeholder={filteredPatientData[0].allergies}
+              onChange={this.handleChange} />
+          </Form.Group>
+          <Form.Group as={Col} controlId="assignedDoctor">
+            <Form.Label>Assigned Doctor</Form.Label>
+            <Form.Control
+              name='assignedDoctor'
+              value={assignedDoctor}
+              type="text"
+              placeholder={filteredPatientData[0].assigned_doctor}
               onChange={this.handleChange} />
           </Form.Group>
         </Form.Row>

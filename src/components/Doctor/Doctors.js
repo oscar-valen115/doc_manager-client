@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { withRouter, Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import Table from 'react-bootstrap/Table'
 // import ButtonGroup from 'react-bootstrap/ButtonGroup'
 // import Button from 'react-bootstrap/Button'
@@ -19,8 +19,8 @@ class Doctors extends Component {
             <td>{doctor.email}</td>
             <td>{doctor.assigned_doctor}</td>
             <td>
-              <Link to={`/patients/${doctor.id}`}>View Profile</Link>
-              <Link to={`/patients/${doctor.id}`}>Delete Patient</Link>
+              {/* <Link to={`/patients/${doctor.id}`}>View Profile</Link>
+              <Link to={`/patients/${doctor.id}`}>Delete Patient</Link> */}
             </td>
           </tr>
         </Fragment>
