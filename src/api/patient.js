@@ -13,8 +13,8 @@ export const getPatientsFromApi = token => {
 }
 
 export const createPatient = (data, user) => {
-  console.log('data value: ', data)
-  console.log('user values: ', user)
+  console.log('data value: \n', data)
+  console.log('user values: \n', user)
   return axios({
     url: apiUrl + '/patients/',
     method: 'POST',
@@ -35,7 +35,7 @@ export const createPatient = (data, user) => {
 
 export const deletePatient = (patientId, token) => {
   return axios({
-    url: apiUrl + `/patients/${patientId}`,
+    url: apiUrl + `/patients/${patientId}/`,
     method: 'DELETE',
     headers: {
       'Authorization': `Token ${token}`
@@ -43,13 +43,24 @@ export const deletePatient = (patientId, token) => {
   })
 }
 
-export const updatePatient = (patientId, token) => {
+export const updatePatient = (patientId, token, data) => {
   return axios({
-    url: `${apiUrl}/patients/${patientId}`,
+    url: `${apiUrl}/patients/${patientId}/`,
     method: 'PATCH',
     headers: {
       'Authorization': `Token ${token}`
     },
-    data: {}
+    data: {
+      patient: {
+        email: data.email,
+        first_name: data.firstName,
+        last_name: data.lastName,
+        dob: data.dob,
+        assigned_doctor: data.assignedDoctor,
+        street_address: data.street_address,
+        city: data.city,
+        allergies: data.allergies
+      }
+    }
   })
 }
