@@ -10,12 +10,14 @@ Back-End Live API: https://doc-manager-api.herokuapp.com/
 Back-End Repo: https://github.com/oscar-valen115/doc_manager-api
 
 ## Technologies Used
+
 - HTML5
 - CSS3
 - React
 - React-Bootstrap
 - Styled-Components
-- Axios
+- Axios  
+
 ## Wireframes
 
 ![wireframe_login](./admin/Capstone_Office_Assistant_Wireframe_login.jpg)  
