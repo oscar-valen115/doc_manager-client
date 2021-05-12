@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 // import styled from 'styled-components'
 // import Spinner from 'react-bootstrap/Spinner'
-import { Redirect } from 'react-router-dom'
+import { Redirect, withRouter } from 'react-router-dom'
 import Table from 'react-bootstrap/Table'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import Button from 'react-bootstrap/Button'
@@ -55,4 +55,4 @@ class HomePage extends Component {
   }
 }
 
-export default HomePage
+export default withRouter(HomePage)

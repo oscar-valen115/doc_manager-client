@@ -15,7 +15,9 @@ class CreatePatient extends Component {
       lastName: '',
       dob: '',
       assignedDoctor: '',
-      zip_code: 20175
+      zip_code: '',
+      sex: '',
+      status: 'inactive'
     }
   }
 
