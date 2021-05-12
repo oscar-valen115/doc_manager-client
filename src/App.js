@@ -147,11 +147,13 @@ class App extends Component {
             exact path='/patients/:patientId'
             user={user}
             doctors={doctors}
+            patients={patients}
             render={() => (
               <PatientProfile
-                msgAlert={this.msgAlert}
                 user={user}
+                doctors={doctors}
                 patients={patients}
+                msgAlert={this.msgAlert}
                 setPatientState={this.setPatientState}
                 setDoctorsState={this.setDoctorsState} />
             )} />

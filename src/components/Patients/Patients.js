@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import Table from 'react-bootstrap/Table'
-// import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import Button from 'react-bootstrap/Button'
 import { deletePatient, getPatientsFromApi } from '../../api/patient'
 
@@ -39,7 +38,7 @@ class Patients extends Component {
             <td>
               <Link
                 to={`/patients/${patient.id}`}
-                // onClick={() => handlePatientProfile(patient.id)}
+                patients={this.props.patients}
               >
                 View Profile
               </Link>
