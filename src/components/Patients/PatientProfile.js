@@ -8,10 +8,7 @@ import { updatePatient, getPatientsFromApi } from '../../api/patient'
 class PatientProfile extends Component {
   constructor (props) {
     super(props)
-    console.log('props data', this.props)
     const { patients, match } = this.props
-    console.log('patient prop data: ', patients)
-    console.log('match prop data: ', match)
     const filteredPatientData = patients.filter(patient => patient.id === parseInt(match.params.patientId))
 
     this.state = {
@@ -20,14 +17,17 @@ class PatientProfile extends Component {
         first_name: filteredPatientData[0].first_name,
         last_name: filteredPatientData[0].last_name,
         dob: filteredPatientData[0].dob,
-        sex: filteredPatientData[0].sex,
+        // sex: filteredPatientData[0].sex,
+        sex: '',
         assigned_doctor: filteredPatientData[0].assigned_doctor,
         street_address: filteredPatientData[0].street_address,
         city: filteredPatientData[0].city,
         state: filteredPatientData[0].state,
         zip_code: filteredPatientData[0].zip_code,
-        allergies: filteredPatientData[0].allergies,
-        status: filteredPatientData[0].status
+        allergies: '',
+        // allergies: filteredPatientData[0].allergies,
+        // status: filteredPatientData[0].status
+        status: ''
       },
       updated: false
     }
@@ -181,7 +181,7 @@ class PatientProfile extends Component {
               placeholder={filteredPatientData[0].assigned_doctor}
               onChange={this.handleChange}
             >
-              <option value={assignedDoctorData[0].id}>{assignedDoctorData[0].first_name} {assignedDoctorData[0].last_name} Specialty: {assignedDoctorData[0].specialty}</option>
+              <option value={assignedDoctorData[0].id}>Dr. {assignedDoctorData[0].first_name} {assignedDoctorData[0].last_name} Specialty: {assignedDoctorData[0].specialty}</option>
               {doctorDataJsx}
             </Form.Control>
           </Form.Group>

@@ -3,13 +3,30 @@ import { withRouter } from 'react-router-dom'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import styled from 'styled-components'
-// import _ from 'lodash'
-// import Moment from 'react-moment'
-// import styled from 'styled-components'
+import 'react-calendar/dist/Calendar.css'
+import Calendar from 'react-calendar'
 
 class CreateAppointment extends Component {
+  constructor (props) {
+    super(props)
+    console.log('prop data for state: ', this.props)
+
+    this.state = {
+      date: '',
+      time: '',
+      patient: '',
+      doctor: '',
+      reason_for_visit: ''
+    }
+  }
+
+  handleChange = event => this.setState({
+    [event.target.name]: event.target.value
+  })
+
   render () {
     const { patients, user, appointments } = this.props
+    // const { date, time, patient, doctor, reason_for_visit } = this.state
     console.log('patients prop data: ', patients)
     console.log('user prop data: ', user)
     console.log('appointments prop data: ', appointments)
@@ -29,6 +46,9 @@ class CreateAppointment extends Component {
                 // onChange={this.handleChange}
               />
             </Form.Group>
+            <Calendar
+              onChange={this.handleChange}
+            />
             <Form.Group>
               <Form.Label>Day</Form.Label>
               <Form.Control
@@ -68,16 +88,3 @@ const StyledButton = styled(Button)`
 `
 
 export default withRouter(CreateAppointment)
-/*
-<Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
-  <Tab eventKey="home" title="Home">
-    <Sonnet />
-  </Tab>
-  <Tab eventKey="profile" title="Profile">
-    <Sonnet />
-  </Tab>
-  <Tab eventKey="contact" title="Contact" disabled>
-    <Sonnet />
-  </Tab>
-</Tabs>
-*/
