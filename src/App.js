@@ -181,11 +181,14 @@ class App extends Component {
           <AuthenticatedRoute
             path='/create-appointment'
             user={user}
+            patients={patients}
+            doctors={doctors}
             render={() => (
               <CreateAppointment
                 msgAlert={this.msgAlert}
                 user={user}
                 patients={patients}
+                doctors={doctors}
                 appointments={appointments} />
             )} />
           <AuthenticatedRoute
