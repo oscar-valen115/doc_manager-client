@@ -10,10 +10,10 @@ import Container from 'react-bootstrap/Container'
 
 class Appointments extends Component {
   render () {
-    const { patients, user, appointments } = this.props
-    console.log('patients prop data: ', patients)
-    console.log('user prop data: ', user)
-    console.log('appointments prop data: ', appointments)
+    // const { patients, user, appointments } = this.props
+    // console.log('patients prop data: ', patients)
+    // console.log('user prop data: ', user)
+    // console.log('appointments prop data: ', appointments)
     return (
       <Container fluid>
         <div>Appoints Page</div>

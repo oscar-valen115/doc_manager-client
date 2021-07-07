@@ -31,7 +31,6 @@ class PatientProfile extends Component {
       },
       updated: false
     }
-    console.log('state data to start: ', this.state)
   }
   handleChange = (event) => {
     const updatedFields = { [event.target.name]: event.target.value }

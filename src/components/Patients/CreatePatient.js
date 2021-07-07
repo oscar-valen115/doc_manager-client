@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { withRouter } from 'react-router-dom'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -54,7 +54,13 @@ class CreatePatient extends Component {
 
   render () {
     const { email, firstName, lastName, dob, assignedDoctor } = this.state
-
+    const { doctors } = this.props
+    console.log('new patient doctors options: ', doctors)
+    const doctorDataJsx = doctors.map(doctor => (
+      <Fragment key={doctor.id}>
+        <option value={doctor.id}>{doctor.first_name} {doctor.last_name} Specialty: {doctor.specialty}</option>
+      </Fragment>
+    ))
     return (
       <div className="row">
         <div className="col-sm-10 col-md-8 mx-auto mt-5">
@@ -107,12 +113,15 @@ class CreatePatient extends Component {
             <Form.Group controlId="assignedDoctor">
               <Form.Label>Assign a Doctor</Form.Label>
               <Form.Control
+                as='select'
+                className="my-1 mr-sm-2"
+                name='assignedDoctor'
                 type="text"
-                name="assignedDoctor"
-                value={assignedDoctor}
-                placeholder="Enter Their Doctor"
                 onChange={this.handleChange}
-              />
+              >
+                <option value={assignedDoctor}>Select a Doctor</option>
+                {doctorDataJsx}
+              </Form.Control>
             </Form.Group>
             <StyledButton
               variant="primary"

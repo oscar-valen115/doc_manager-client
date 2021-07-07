@@ -7,7 +7,7 @@ import Table from 'react-bootstrap/Table'
 class Doctors extends Component {
   render () {
     const { doctors } = this.props
-    console.log('patients prop data: ', doctors)
+    // console.log('patients prop data: ', doctors)
     const doctorsJsx = (
       doctors.map(doctor => (
         <Fragment key={doctor.id}>
