@@ -13,10 +13,11 @@ class HomePage extends Component {
     this.state = {}
   }
   render () {
-    const { appointments, user, doctors, patients } = this.props
-    console.log('appointment data on homepage: ', appointments)
-    console.log('doctors data: ', doctors)
-    console.log('patients data: ', patients)
+    // const { appointments, user, doctors, patients } = this.props
+    const { user } = this.props
+    // console.log('appointment data on homepage: ', appointments)
+    // console.log('doctors data: ', doctors)
+    // console.log('patients data: ', patients)
     if (!user) {
       return <Redirect to='/sign-in' />
     }
