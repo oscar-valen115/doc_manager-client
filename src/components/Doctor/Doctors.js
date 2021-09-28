@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import Table from 'react-bootstrap/Table'
 // import ButtonGroup from 'react-bootstrap/ButtonGroup'
 // import Button from 'react-bootstrap/Button'
@@ -17,10 +17,10 @@ class Doctors extends Component {
             <td>{doctor.last_name}</td>
             <td>{doctor.specialty}</td>
             <td>{doctor.email}</td>
-            <td>{doctor.assigned_doctor}</td>
+            <td>{doctor.specialty}</td>
             <td>
-              {/* <Link to={`/patients/${doctor.id}`}>View Profile</Link>
-              <Link to={`/patients/${doctor.id}`}>Delete Patient</Link> */}
+              <Link to={`/doctors/${doctor.id}`}>View Profile</Link>
+              <Link to={`/doctors/${doctor.id}`}>Delete Patient</Link>
             </td>
           </tr>
         </Fragment>
@@ -37,6 +37,7 @@ class Doctors extends Component {
                 <th>Last Name</th>
                 <th>Specialty</th>
                 <th>Email</th>
+                <th>Specialty</th>
                 <th>Action</th>
               </tr>
             </thead>

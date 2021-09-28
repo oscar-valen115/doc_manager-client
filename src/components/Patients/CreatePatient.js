@@ -17,7 +17,7 @@ class CreatePatient extends Component {
       assignedDoctor: '',
       zip_code: '',
       sex: '',
-      status: 'inactive'
+      status: ''
     }
   }
 
@@ -55,7 +55,6 @@ class CreatePatient extends Component {
   render () {
     const { email, firstName, lastName, dob, assignedDoctor } = this.state
     const { doctors } = this.props
-    console.log('new patient doctors options: ', doctors)
     const doctorDataJsx = doctors.map(doctor => (
       <Fragment key={doctor.id}>
         <option value={doctor.id}>{doctor.first_name} {doctor.last_name} Specialty: {doctor.specialty}</option>

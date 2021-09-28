@@ -13,7 +13,6 @@ export const getPatientsFromApi = token => {
 }
 
 export const createPatient = (data, user) => {
-  console.log('right before api call: ', data)
   return axios({
     url: apiUrl + '/patients/',
     method: 'POST',
@@ -44,14 +43,6 @@ export const deletePatient = (patientId, token) => {
 }
 
 export const updatePatient = (patientId, user, data) => {
-  console.log('data passed to api call: ', data.patient)
-  // for (const key in data.patient) {
-  //   if (data.patient[key].length === 0) {
-  //     console.log('key being deleted: ', data.patient)
-  //     delete data.patient[key]
-  //   }
-  // }
-  console.log('before api call: ', data.patient)
   return axios({
     url: `${apiUrl}/patients/${patientId}/`,
     method: 'PATCH',

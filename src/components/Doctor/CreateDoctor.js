@@ -45,7 +45,7 @@ class CreateDoctor extends Component {
       }))
       .then(() => getDoctorsFromApi(getUserTokenFromApp()))
       .then(doctors => setDoctorsState(doctors))
-      .then(() => history.push('/'))
+      .then(() => history.push('/doctors'))
       .catch(error => {
         this.setState({ email: '', firstName: '', lastName: '', specialty: '' })
         msgAlert({
@@ -102,10 +102,16 @@ class CreateDoctor extends Component {
                 required
                 name="specialty"
                 value={specialty}
+                as='select'
                 type="text"
-                placeholder="Enter Specialty"
+                placeholder="Choose Specialty"
                 onChange={this.handleChange}
-              />
+              >
+                <option value={specialty}>Select a Specialty</option>
+                <option value='General'>General</option>
+                <option value='Pediatrics'>Pediatrics</option>
+                <option value='Cardiology'>Cardiology</option>
+              </Form.Control>
             </Form.Group>
             <StyledButton
               variant="primary"
