@@ -45,7 +45,7 @@ class PatientProfile extends Component {
         variant: 'success'
       }))
       .catch(error => {
-        this.setState({ patient: { email: '', first_name: '', last_name: '', dob: '', assigned_doctor: '', street_address: '', city: '', state: '', allergies: '' } })
+        this.setState({ patient: { email: this.state.patient.email, first_name: this.state.patient.first_name, last_name: this.state.patient.last_name, dob: this.state.patient.dob, assigned_doctor: this.state.patient.assigned_doctor, street_address: this.state.patient.street_address, city: this.state.patient.city, state: this.state.patient.state, allergies: this.state.patient.allergies } })
         msgAlert({
           heading: ' Failed to update a patient, with error: ' + error.message,
           variant: 'danger'
