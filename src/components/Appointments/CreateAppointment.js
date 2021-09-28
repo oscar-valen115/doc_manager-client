@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { withRouter } from 'react-router-dom'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -10,29 +10,70 @@ import DatePicker from 'react-date-picker'
 class CreateAppointment extends Component {
   constructor (props) {
     super(props)
-    // console.log('prop data for state: ', this.props)
+    console.log('prop data for state: ', this.props)
 
     this.state = {
-      date: '',
+      date: null,
+      dateToggle: false,
       time: '',
       patient: '',
       doctor: '',
-      reason_for_visit: '',
-      this_week_toggle: false,
-      this_month_toggle: true
+      reasonForVisit: '',
+      thisWeekToggle: '',
+      thisWeekToggleChecked: false,
+      thisMonthToggle: '',
+      thisMonthToggleChecked: false
     }
   }
 
-  handleChange = event => this.setState({
-    [event.target.name]: event.target.value
-  })
+  handleDateChange = event => {
+    console.log('event data: ', event)
+    // this.setState({ [event.target.name]: event.target.value })
+    console.log('date state after event: ', this.state.date)
+    // this.setState({ date: new Date() })
+    if (this.state.thisWeekToggleChecked || this.state.thisMonthToggleChecked) {
+      this.setState({ date: event, thisWeekToggle: '', thisWeekToggleChecked: false, thisMonthToggle: '', thisMonthToggleChecked: false })
+    } else if (!this.state.date) {
+      this.setState({ date: event })
+    }
+    // else {
+    //   this.setState({ date: event })
+    // }
+  }
+  handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value })
+  }
+
+  handleWeekToggle = event => {
+    if (event.target.checked && (this.state.thisMonthToggleChecked || this.state.date)) this.setState({ [event.target.name]: new Date(), thisWeekToggleChecked: true, thisMonthToggle: '', thisMonthToggleChecked: false, date: null })
+    else if (event.target.checked && !this.state.thisMonthToggleChecked && !this.state.date) this.setState({ [event.target.name]: new Date(), thisWeekToggleChecked: true, date: null })
+    else if (!event.target.checked) this.setState({ [event.target.name]: '', thisWeekToggleChecked: false })
+  }
+  handleMonthToggle = event => {
+    if (event.target.checked && (this.state.thisWeekToggleChecked || this.state.date)) this.setState({ [event.target.name]: new Date(), thisMonthToggleChecked: true, thisWeekToggle: '', thisWeekToggleChecked: false, date: null })
+    else if (event.target.checked && !this.state.thisWeekToggleChecked && !this.state.date) this.setState({ [event.target.name]: new Date(), thisMonthToggleChecked: true, date: null })
+    else if (!event.target.checked) this.setState({ [event.target.name]: '', thisMonthToggleChecked: false })
+  }
 
   render () {
-    // const { patients, user, appointments } = this.props
-    // const { date, time, patient, doctor, reason_for_visit } = this.state
-    // console.log('patients prop data: ', patients)
-    // console.log('user prop data: ', user)
-    // console.log('appointments prop data: ', appointments)
+    const { patients, doctors, appointments } = this.props
+    const { date,
+      time, patient,
+      doctor, reasonForVisit,
+      thisWeekToggle, thisMonthToggle,
+      thisWeekToggleChecked, thisMonthToggleChecked } = this.state
+    console.log('appointments prop data: ', appointments)
+    const doctorsDataJsx = doctors.map(doctor => (
+      <Fragment key={doctor.id}>
+        <option value={doctor.id}>{doctor.first_name} {doctor.last_name} Specialty: {doctor.specialty}</option>
+      </Fragment>
+    ))
+    const patientsDataJsx = patients.map(patient => (
+      <Fragment key={patient.id}>
+        <option value={patient.id}>{patient.first_name} {patient.last_name}</option>
+      </Fragment>
+    ))
+    console.log('current state: ', this.state)
     return (
       <div className="row">
         <div className="col-sm-10 col-md-8 mx-auto mt-5">
@@ -42,48 +83,83 @@ class CreateAppointment extends Component {
               <Form.Label column sm={2}>Date:</Form.Label>
               <Col sm={10}>
                 <DatePicker
-                  onChange={this.handleChange}
+                  name='date'
+                  clearIcon={null}
+                  value={date}
+                  format={'MM-dd-yyyy'}
+                  onChange={this.handleDateChange}
                 />
-                <Form.Check inline label='This Week' name='group1'></Form.Check>
-                <Form.Check inline label='This Month' name='group2'></Form.Check>
+                <Form.Check
+                  type='checkbox'
+                  inline label='This Week'
+                  name='thisWeekToggle'
+                  value={thisWeekToggle}
+                  checked={thisWeekToggleChecked}
+                  onChange={this.handleWeekToggle}
+                />
+                <Form.Check
+                  type='checkbox'
+                  inline label='This Month'
+                  name='thisMonthToggle'
+                  value={thisMonthToggle}
+                  checked={thisMonthToggleChecked}
+                  onChange={this.handleMonthToggle}
+                />
               </Col>
             </Form.Group>
             <Form.Group as={Row}>
               <Form.Label column sm={2}>Patient:</Form.Label>
               <Col sm={10}>
                 <Form.Control
-                // required
-                  name="lastName"
-                  // value={password}
-                  type="password"
-                  placeholder="Patient"
-                // onChange={this.handleChange}
-                />
+                  as='select'
+                  className="my-1 mr-sm-2"
+                  name='patient'
+                  type="text"
+                  onChange={this.handleChange}
+                >
+                  <option value={patient}>Select a Patient</option>
+                  {patientsDataJsx}
+                </Form.Control>
               </Col>
             </Form.Group>
             <Form.Group as={Row}>
               <Form.Label column sm={2}>Doctor:</Form.Label>
               <Col sm={10}>
                 <Form.Control
+                  as='select'
+                  className="my-1 mr-sm-2"
+                  name="doctor"
                   type="text"
-                  name="assignedDoctor"
-                  // value={email}
-                  placeholder="Doctor"
-                // onChange={this.handleChange}
-                />
+                  onChange={this.handleChange}
+                >
+                  <option value={doctor}>Select a Doctor</option>
+                  {doctorsDataJsx}
+                </Form.Control>
               </Col>
             </Form.Group>
             <Form.Group as={Row}>
               <Form.Label column sm={2}>Availability:</Form.Label>
               <Col sm={10}>
                 <Form.Control
-                  type="text"
-                  name="assignedDoctor"
-                  // value={email}
-                  placeholder="Time Slots"
-                // onChange={this.handleChange}
-                />
+                  as="select"
+                  name="time"
+                  value={time}
+                  onChange={this.handleChange}
+                >
+                  <option value={time}>Select a Time Slot</option>
+                  {/* {doctorsDataJsx} */}
+                </Form.Control>
               </Col>
+            </Form.Group>
+            <Form.Group controlId="reasonForVisit">
+              <Form.Label>Reason for Visit</Form.Label>
+              <Form.Control
+                name='reasonForVisit'
+                value={reasonForVisit}
+                as="textarea"
+                rows={3}
+                onChange={this.handleChange}
+              />
             </Form.Group>
             <StyledButton
               variant="primary"

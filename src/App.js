@@ -11,6 +11,7 @@ import ChangePassword from './components/ChangePassword/ChangePassword'
 import HomePage from './components/HomePage/HomePage'
 import Patients from './components/Patients/Patients'
 import PatientProfile from './components/Patients/PatientProfile'
+import DoctorProfile from './components/Doctor/DoctorProfile'
 import CreatePatient from './components/Patients/CreatePatient'
 import Appointments from './components/Appointments/Appointments'
 import CreateAppointment from './components/Appointments/CreateAppointment'
@@ -73,7 +74,7 @@ class App extends Component {
       appointments,
       doctors
     } = this.state
-
+    console.log(this.state)
     return (
       <Fragment>
         <Header user={user} />
@@ -192,7 +193,7 @@ class App extends Component {
                 appointments={appointments} />
             )} />
           <AuthenticatedRoute
-            path='/doctors'
+            exact path='/doctors'
             user={user}
             render={() => (
               <Doctors
@@ -215,10 +216,23 @@ class App extends Component {
                 patients={patients}
                 doctors={doctors} />
             )} />
+          <AuthenticatedRoute
+            exact path='/doctors/:doctorId'
+            user={user}
+            doctors={doctors}
+            patients={patients}
+            render={() => (
+              <DoctorProfile
+                user={user}
+                doctors={doctors}
+                patients={patients}
+                msgAlert={this.msgAlert}
+                setPatientState={this.setPatientState}
+                setDoctorsState={this.setDoctorsState} />
+            )} />
         </main>
       </Fragment>
     )
   }
 }
-
 export default withRouter(App)
