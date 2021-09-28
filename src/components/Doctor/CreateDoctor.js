@@ -101,7 +101,6 @@ class CreateDoctor extends Component {
               <Form.Control
                 required
                 name="specialty"
-                value={specialty}
                 as='select'
                 type="text"
                 placeholder="Choose Specialty"
