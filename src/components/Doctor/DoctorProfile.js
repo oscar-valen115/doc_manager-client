@@ -1,37 +1,38 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
 import { updatePatient, getPatientsFromApi } from '../../api/patient'
 
-class PatientProfile extends Component {
+class DoctorProfile extends Component {
   constructor (props) {
     super(props)
-    const { patients, match } = this.props
-    const filteredPatientData = patients.filter(patient => patient.id === parseInt(match.params.patientId))
+    const { doctors, match } = this.props
+    const filteredDoctorData = doctors.filter(doctor => doctor.id === parseInt(match.params.doctorId))
     this.state = {
-      patient: {
-        email: filteredPatientData[0].email,
-        first_name: filteredPatientData[0].first_name,
-        last_name: filteredPatientData[0].last_name,
-        dob: filteredPatientData[0].dob,
-        gender: filteredPatientData[0].gender,
-        assigned_doctor: filteredPatientData[0].assigned_doctor,
-        street_address: filteredPatientData[0].street_address,
-        city: filteredPatientData[0].city,
-        state: filteredPatientData[0].state,
-        zip_code: filteredPatientData[0].zip_code,
-        allergies: filteredPatientData[0].allergies,
-        status: filteredPatientData[0].status
+      doctor: {
+        email: filteredDoctorData[0].email,
+        first_name: filteredDoctorData[0].first_name,
+        last_name: filteredDoctorData[0].last_name,
+        specialty: filteredDoctorData[0].specialty
+        // dob: filteredDoctorData[0].dob,
+        // gender: filteredDoctorData[0].gender,
+        // assigned_doctor: filteredDoctorData[0].assigned_doctor,
+        // street_address: filteredDoctorData[0].street_address,
+        // city: filteredDoctorData[0].city,
+        // state: filteredDoctorData[0].state,
+        // zip_code: filteredDoctorData[0].zip_code,
+        // allergies: filteredDoctorData[0].allergies,
+        // status: filteredDoctorData[0].status
       }
     }
   }
   handleChange = (event) => {
     const updatedFields = { [event.target.name]: event.target.value }
-    this.setState({ patient: updatedFields })
+    this.setState({ doctor: updatedFields })
   }
-  handleUpdatePatient = (event) => {
+  handleUpdateDoctor = (event) => {
     event.preventDefault()
     console.log('event data: ', event)
     const { user, setPatientState, msgAlert, match, history } = this.props
@@ -45,7 +46,7 @@ class PatientProfile extends Component {
         variant: 'success'
       }))
       .catch(error => {
-        this.setState({ patient: { email: '', first_name: '', last_name: '', dob: '', assigned_doctor: '', street_address: '', city: '', state: '', allergies: '' } })
+        this.setState({ doctor: { email: '', first_name: '', last_name: '', dob: '', assigned_doctor: '', street_address: '', city: '', state: '', allergies: '' } })
         msgAlert({
           heading: ' Failed to update a patient, with error: ' + error.message,
           variant: 'danger'
@@ -54,17 +55,17 @@ class PatientProfile extends Component {
   }
 
   render () {
-    const { patient } = this.state
-    const { patients, match, doctors } = this.props
-    const filteredPatientData = patients.filter(patient => patient.id === parseInt(match.params.patientId))
-    const assignedDoctorData = doctors.filter(doctor => doctor.id === filteredPatientData[0].assigned_doctor)
-    const doctorDataJsx = doctors.map(doctor => (
-      <Fragment key={doctor.id}>
-        <option value={doctor.id}>{doctor.first_name} {doctor.last_name} Specialty: {doctor.specialty}</option>
-      </Fragment>
-    ))
+    const { doctor } = this.state
+    const { match, doctors } = this.props
+    const filteredDoctorData = doctors.filter(doctor => doctor.id === parseInt(match.params.doctorId))
+    // const assignedDoctorData = doctors.filter(doctor => doctor.id === filteredPatientData[0].assigned_doctor)
+    // const doctorDataJsx = doctors.map(doctor => (
+    //   <Fragment key={doctor.id}>
+    //     <option value={doctor.id}>{doctor.first_name} {doctor.last_name} Specialty: {doctor.specialty}</option>
+    //   </Fragment>
+    // ))
     return (
-      <Form onSubmit={this.handleUpdatePatient}>
+      <Form onSubmit={this.handleUpdateDoctor}>
         <Form.Row>
           <Form.Group
             as={Col}
@@ -74,8 +75,8 @@ class PatientProfile extends Component {
             <Form.Control
               type="text"
               name='first_name'
-              value={patient.first_name}
-              placeholder={filteredPatientData[0].first_name}
+              value={doctor.first_name}
+              placeholder={filteredDoctorData[0].first_name}
               onChange={this.handleChange} />
           </Form.Group>
 
@@ -84,29 +85,29 @@ class PatientProfile extends Component {
             <Form.Control
               type="text"
               name='last_name'
-              value={patient.last_name}
-              placeholder={filteredPatientData[0].last_name}
+              value={doctor.last_name}
+              placeholder={filteredDoctorData[0].last_name}
               onChange={this.handleChange} />
           </Form.Group>
         </Form.Row>
 
-        <Form.Group controlId="street_address">
+        {/* <Form.Group controlId="street_address">
           <Form.Label>Street Address</Form.Label>
           <Form.Control
             name='street_address'
-            value={patient.street_address}
-            placeholder={filteredPatientData[0].street_address}
+            value={doctor.street_address}
+            placeholder={filteredDoctorData[0].street_address}
             onChange={this.handleChange} />
-        </Form.Group>
+        </Form.Group> */}
 
         <Form.Row>
-          <Form.Group as={Col} controlId="city">
+          {/* <Form.Group as={Col} controlId="city">
             <Form.Label>City</Form.Label>
             <Form.Control
               type="text"
               name='city'
-              value={patient.city}
-              placeholder={filteredPatientData[0].city}
+              value={doctor.city}
+              placeholder={filteredDoctorData[0].city}
               onChange={this.handleChange} />
           </Form.Group>
 
@@ -115,16 +116,16 @@ class PatientProfile extends Component {
             <Form.Control
               type="text"
               name='state'
-              value={patient.state}
-              placeholder={filteredPatientData[0].state}
+              value={doctor.state}
+              placeholder={filteredDoctorData[0].state}
               onChange={this.handleChange} />
-          </Form.Group>
+          </Form.Group> */}
 
-          <Form.Group as={Col} controlId="zip_code">
-            <Form.Label>Zip</Form.Label>
+          <Form.Group as={Col} controlId="specialty">
+            <Form.Label>Specialty</Form.Label>
             <Form.Control
-              name='zip_code'
-              value={patient.zip_code}
+              name='specialty'
+              value={doctor.specialty}
               onChange={this.handleChange} />
           </Form.Group>
         </Form.Row>
@@ -135,33 +136,33 @@ class PatientProfile extends Component {
             <Form.Control
               type="email"
               name='email'
-              value={patient.email}
-              placeholder={filteredPatientData[0].email}
+              value={doctor.email}
+              placeholder={filteredDoctorData[0].email}
               onChange={this.handleChange} />
           </Form.Group>
 
-          <Form.Group as={Col} controlId="dob">
+          {/* <Form.Group as={Col} controlId="dob">
             <Form.Label>Date of Birth</Form.Label>
             <Form.Control
               type="text"
               name='dob'
-              value={patient.dob}
-              placeholder={filteredPatientData[0].dob}
+              value={doctor.dob}
+              placeholder={filteredDoctorData[0].dob}
               onChange={this.handleChange} />
-          </Form.Group>
+          </Form.Group> */}
         </Form.Row>
 
         <Form.Row>
-          <Form.Group as={Col} controlId="allergies">
+          {/* <Form.Group as={Col} controlId="allergies">
             <Form.Label>Allergies</Form.Label>
             <Form.Control
               name='allergies'
-              value={patient.allergies}
+              value={doctor.allergies}
               type="text"
-              placeholder={filteredPatientData[0].allergies}
+              placeholder={filteredDoctorData[0].allergies}
               onChange={this.handleChange} />
-          </Form.Group>
-          <Form.Group as={Col} controlId="assigned_doctor">
+          </Form.Group> */}
+          {/* <Form.Group as={Col} controlId="assigned_doctor">
             <Form.Label className="my-1 mr-2">
               Assigned Doctor
             </Form.Label>
@@ -169,15 +170,15 @@ class PatientProfile extends Component {
               as='select'
               className="my-1 mr-sm-2"
               name='assigned_doctor'
-              value={patient.assigned_doctor}
+              value={doctor.assigned_doctor}
               type="text"
-              placeholder={filteredPatientData[0].assigned_doctor}
+              placeholder={filteredDoctorData[0].assigned_doctor}
               onChange={this.handleChange}
             >
               <option value={assignedDoctorData[0].id}>Dr. {assignedDoctorData[0].first_name} {assignedDoctorData[0].last_name} Specialty: {assignedDoctorData[0].specialty}</option>
               {doctorDataJsx}
             </Form.Control>
-          </Form.Group>
+          </Form.Group> */}
         </Form.Row>
 
         <Button
@@ -191,4 +192,4 @@ class PatientProfile extends Component {
   }
 }
 
-export default withRouter(PatientProfile)
+export default withRouter(DoctorProfile)

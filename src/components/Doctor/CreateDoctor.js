@@ -45,7 +45,7 @@ class CreateDoctor extends Component {
       }))
       .then(() => getDoctorsFromApi(getUserTokenFromApp()))
       .then(doctors => setDoctorsState(doctors))
-      .then(() => history.push('/'))
+      .then(() => history.push('/doctors'))
       .catch(error => {
         this.setState({ email: '', firstName: '', lastName: '', specialty: '' })
         msgAlert({
