@@ -25,11 +25,11 @@ class Patients extends Component {
         <Fragment key={patient.id}>
           <tr>
             <td>{patient.id}</td>
+            <td>{patient.dob}</td>
             <td>{patient.first_name}</td>
             <td>{patient.last_name}</td>
-            <td>{patient.dob}</td>
             <td>{patient.email}</td>
-            <td>{patient.assigned_doctor}</td>
+            {/* <td>{patient.assigned_doctor}</td> */}
             <td>
               <Link
                 to={`/patients/${patient.id}`}
@@ -49,11 +49,11 @@ class Patients extends Component {
             <thead>
               <tr>
                 <th>ID</th>
+                <th>DOB</th>
                 <th>First Name</th>
                 <th>Last Name</th>
-                <th>DOB</th>
                 <th>Email</th>
-                <th>Assigned Doctor</th>
+                {/* <th>Assigned Doctor</th> */}
                 <th>Action</th>
               </tr>
             </thead>
