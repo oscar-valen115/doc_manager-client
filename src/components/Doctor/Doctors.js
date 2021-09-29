@@ -15,12 +15,10 @@ class Doctors extends Component {
             <td>{doctor.id}</td>
             <td>{doctor.first_name}</td>
             <td>{doctor.last_name}</td>
-            <td>{doctor.specialty}</td>
             <td>{doctor.email}</td>
             <td>{doctor.specialty}</td>
             <td>
               <Link to={`/doctors/${doctor.id}`}>View Profile</Link>
-              <Link to={`/doctors/${doctor.id}`}>Delete Patient</Link>
             </td>
           </tr>
         </Fragment>
@@ -35,7 +33,6 @@ class Doctors extends Component {
                 <th>ID</th>
                 <th>First Name</th>
                 <th>Last Name</th>
-                <th>Specialty</th>
                 <th>Email</th>
                 <th>Specialty</th>
                 <th>Action</th>
