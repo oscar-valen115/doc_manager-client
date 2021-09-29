@@ -32,22 +32,23 @@ export const createDoctor = (data, user) => {
   })
 }
 
-export const deleteDoctor = (doctorId, user) => {
+export const deleteDoctor = (doctorId, token) => {
   return axios({
-    url: apiUrl + `/doctors/${doctorId}`,
+    url: apiUrl + `/doctors/${doctorId}/`,
     method: 'DELETE',
     headers: {
-      'Authorization': `Token ${user.token}`
+      'Authorization': `Token ${token}`
     }
   })
 }
 
-export const updateDoctor = (doctorId, user, data) => {
+export const updateDoctor = (doctorId, token, data) => {
+  console.log('data before API call: ', data)
   return axios({
     url: `${apiUrl}/doctors/${doctorId}/`,
     method: 'PATCH',
     headers: {
-      'Authorization': `Token ${user.token}`
+      'Authorization': `Token ${token}`
     },
     data: { doctor: data.doctor }
   })
