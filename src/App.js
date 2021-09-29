@@ -64,6 +64,7 @@ class App extends Component {
 
   setPatientState = (response) => this.setState({ patients: response.data.patients })
   setDoctorsState = (response) => this.setState({ doctors: response.data.doctors })
+  setAppointmentState = (response) => this.setState({ appointments: response.data.appointments })
   getUserTokenFromApp = () => this.state.user.token
 
   render () {

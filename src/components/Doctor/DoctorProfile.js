@@ -30,7 +30,7 @@ class DoctorProfile extends Component {
     event.preventDefault()
     const { user, setDoctorsState, msgAlert, match, history } = this.props
     // console.log('match params data: ', match)
-    updateDoctor(match.params.doctorId, user, this.state)
+    updateDoctor(match.params.doctorId, user.token, this.state)
       .then(() => getDoctorsFromApi(user.token))
       .then(doctors => setDoctorsState(doctors))
       .then(() => history.push('/doctors'))
