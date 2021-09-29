@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
-import { updatePatient, getPatientsFromApi } from '../../api/patient'
+import { updateDoctor, deleteDoctor, getDoctorsFromApi } from '../../api/doctor'
 
 class DoctorProfile extends Component {
   constructor (props) {
@@ -18,12 +18,6 @@ class DoctorProfile extends Component {
         specialty: filteredDoctorData[0].specialty
         // dob: filteredDoctorData[0].dob,
         // gender: filteredDoctorData[0].gender,
-        // assigned_doctor: filteredDoctorData[0].assigned_doctor,
-        // street_address: filteredDoctorData[0].street_address,
-        // city: filteredDoctorData[0].city,
-        // state: filteredDoctorData[0].state,
-        // zip_code: filteredDoctorData[0].zip_code,
-        // allergies: filteredDoctorData[0].allergies,
         // status: filteredDoctorData[0].status
       }
     }
@@ -34,13 +28,32 @@ class DoctorProfile extends Component {
   }
   handleUpdateDoctor = (event) => {
     event.preventDefault()
-    console.log('event data: ', event)
-    const { user, setPatientState, msgAlert, match, history } = this.props
-    updatePatient(match.params.patientId, user, this.state)
-      .then((res) => console.log('res data: ', res))
-      .then(() => getPatientsFromApi(user.token))
-      .then(patients => setPatientState(patients))
-      .then(() => history.push('/patients'))
+    const { user, setDoctorsState, msgAlert, match, history } = this.props
+    // console.log('match params data: ', match)
+    updateDoctor(match.params.doctorId, user, this.state)
+      .then(() => getDoctorsFromApi(user.token))
+      .then(doctors => setDoctorsState(doctors))
+      .then(() => history.push('/doctors'))
+      .then(() => msgAlert({
+        heading: 'Updated Doctor Successfully',
+        variant: 'success'
+      }))
+      .catch(error => {
+        this.setState({ doctor: { email: this.state.doctor.email, first_name: this.state.doctor.first_name, last_name: this.state.doctor.last_name, dob: this.state.doctor.dob, assigned_doctor: this.state.doctor.assigned_doctor, street_address: this.state.doctor.street_address, city: this.state.doctor.city, state: this.state.doctor.state, allergies: this.state.doctor.allergies } })
+        msgAlert({
+          heading: ' Failed to update a doctor, with error: ' + error.message,
+          variant: 'danger'
+        })
+      })
+  }
+
+  handleDeleteDoctor = (event) => {
+    event.preventDefault()
+    const { user, setDoctorsState, msgAlert, match, history } = this.props
+    deleteDoctor(match.params.doctorId, user.token)
+      .then(() => getDoctorsFromApi(user.token))
+      .then(doctors => setDoctorsState(doctors))
+      .then(() => history.push('/doctors'))
       .then(() => msgAlert({
         heading: 'Updated Patient Successfully',
         variant: 'success'
@@ -56,8 +69,8 @@ class DoctorProfile extends Component {
 
   render () {
     const { doctor } = this.state
-    const { match, doctors } = this.props
-    const filteredDoctorData = doctors.filter(doctor => doctor.id === parseInt(match.params.doctorId))
+    // const { match, doctors } = this.props
+    // const filteredDoctorData = doctors.filter(doctor => doctor.id === parseInt(match.params.doctorId))
     // const assignedDoctorData = doctors.filter(doctor => doctor.id === filteredPatientData[0].assigned_doctor)
     // const doctorDataJsx = doctors.map(doctor => (
     //   <Fragment key={doctor.id}>
@@ -76,7 +89,7 @@ class DoctorProfile extends Component {
               type="text"
               name='first_name'
               value={doctor.first_name}
-              placeholder={filteredDoctorData[0].first_name}
+              placeholder='Enter First Name'
               onChange={this.handleChange} />
           </Form.Group>
 
@@ -86,7 +99,7 @@ class DoctorProfile extends Component {
               type="text"
               name='last_name'
               value={doctor.last_name}
-              placeholder={filteredDoctorData[0].last_name}
+              placeholder='Enter Last Name'
               onChange={this.handleChange} />
           </Form.Group>
         </Form.Row>
@@ -137,7 +150,7 @@ class DoctorProfile extends Component {
               type="email"
               name='email'
               value={doctor.email}
-              placeholder={filteredDoctorData[0].email}
+              placeholder='Enter Email'
               onChange={this.handleChange} />
           </Form.Group>
 
@@ -187,6 +200,14 @@ class DoctorProfile extends Component {
         >
     Update Profile
         </Button>
+        <Button
+          type='button'
+          variant="danger"
+          onClick={this.handleDeleteDoctor}
+        >
+          Delete Patient
+        </Button>
+
       </Form>
     )
   }

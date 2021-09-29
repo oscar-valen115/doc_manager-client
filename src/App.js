@@ -74,7 +74,6 @@ class App extends Component {
       appointments,
       doctors
     } = this.state
-    console.log(this.state)
     return (
       <Fragment>
         <Header user={user} />
@@ -142,6 +141,7 @@ class App extends Component {
                 msgAlert={this.msgAlert}
                 user={user}
                 patients={patients}
+                doctors={doctors}
                 setPatientState={this.setPatientState} />
             )} />
           <AuthenticatedRoute

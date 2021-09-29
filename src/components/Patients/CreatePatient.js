@@ -16,7 +16,7 @@ class CreatePatient extends Component {
       dob: '',
       assignedDoctor: '',
       zip_code: '',
-      sex: '',
+      gender: '',
       status: ''
     }
   }
