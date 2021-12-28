@@ -4,6 +4,10 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import styled from 'styled-components'
 import { createPatient, getPatientsFromApi } from '../../api/patient'
+import Accordion from 'react-bootstrap/Accordion'
+import Card from 'react-bootstrap/Card'
+import Row from 'react-bootstrap/Row'
+// import Col from 'react-bootstrap/Col'
 
 class CreatePatient extends Component {
   constructor (props) {
@@ -61,76 +65,113 @@ class CreatePatient extends Component {
       </Fragment>
     ))
     return (
-      <div className="row">
-        <div className="col-sm-10 col-md-8 mx-auto mt-5">
-          <h3>Create New Patient</h3>
-          <Form onSubmit={this.onCreatePatient}>
-            <Form.Group controlId="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                required
-                type="email"
-                name="email"
-                value={email}
-                placeholder="Enter First Name"
-                onChange={this.handleChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="firstName">
-              <Form.Label>First Name</Form.Label>
-              <Form.Control
-                required
-                type="text"
-                name="firstName"
-                value={firstName}
-                placeholder="Enter First Name"
-                onChange={this.handleChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="lastName">
-              <Form.Label>Last Name</Form.Label>
-              <Form.Control
-                required
-                name="lastName"
-                value={lastName}
-                type="text"
-                placeholder="Enter Last Name"
-                onChange={this.handleChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="dob">
-              <Form.Label>Date Of Birth</Form.Label>
-              <Form.Control
-                required
-                name="dob"
-                value={dob}
-                type="text"
-                placeholder="Enter Date of Birth"
-                onChange={this.handleChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="assignedDoctor">
-              <Form.Label>Assign a Doctor</Form.Label>
-              <Form.Control
-                as='select'
-                className="my-1 mr-sm-2"
-                name='assignedDoctor'
-                type="text"
-                onChange={this.handleChange}
-              >
-                <option value={assignedDoctor}>Select a Doctor</option>
-                {doctorDataJsx}
-              </Form.Control>
-            </Form.Group>
+      // <div className="row">
+      // <div className="col-sm-10 col-md-10 mx-auto mt-3">
+      <Fragment>
+        <h3>New Patient</h3>
+        <Form onSubmit={this.onCreatePatient}>
+          {/* <Form.Row> */}
+          {/* <Col> */}
+          <Accordion defaultActiveKey='0'>
+            <Card>
+              <Accordion.Toggle as={Card.Header} eventKey="0">
+                Basic Information
+              </Accordion.Toggle>
+              <Accordion.Collapse eventKey="0">
+                <Card.Body>
+                  <Form.Group controlId="email">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control
+                      required
+                      type="email"
+                      name="email"
+                      value={email}
+                      placeholder="Enter First Name"
+                      onChange={this.handleChange}
+                    />
+                  </Form.Group>
+                  <Form.Group controlId="firstName">
+                    <Form.Label>First Name</Form.Label>
+                    <Form.Control
+                      required
+                      type="text"
+                      name="firstName"
+                      value={firstName}
+                      placeholder="Enter First Name"
+                      onChange={this.handleChange}
+                    />
+                  </Form.Group>
+                  <Form.Group controlId="lastName">
+                    <Form.Label>Last Name</Form.Label>
+                    <Form.Control
+                      required
+                      name="lastName"
+                      value={lastName}
+                      type="text"
+                      placeholder="Enter Last Name"
+                      onChange={this.handleChange}
+                    />
+                  </Form.Group>
+                  <Form.Group controlId="dob">
+                    <Form.Label>Date Of Birth</Form.Label>
+                    <Form.Control
+                      required
+                      name="dob"
+                      value={dob}
+                      type="text"
+                      placeholder="Enter Date of Birth"
+                      onChange={this.handleChange}
+                    />
+                  </Form.Group>
+                  <Form.Group controlId="assignedDoctor">
+                    <Form.Label>Assign a Doctor</Form.Label>
+                    <Form.Control
+                      as='select'
+                      className="my-1 mr-sm-2"
+                      name='assignedDoctor'
+                      type="text"
+                      onChange={this.handleChange}
+                    >
+                      <option value={assignedDoctor}>Select a Doctor</option>
+                      {doctorDataJsx}
+                    </Form.Control>
+                  </Form.Group>
+                  {/* <StyledButton
+                      variant="primary"
+                      type="submit"
+                    >
+                    Add
+                    </StyledButton> */}
+                </Card.Body>
+              </Accordion.Collapse>
+            </Card>
+          </Accordion>
+          {/* </Col>
+          </Form.Row>
+          <Form.Row>
+            <Col className='ml-auto'> */}
+          <Row className='mt-2'>
             <StyledButton
-              variant="primary"
               type="submit"
+              className="ml-auto mr-2"
             >
-              Add
+                    Add
             </StyledButton>
-          </Form>
-        </div>
-      </div>
+            <Button
+              variant='danger'
+              type='button'
+              className="mr-3"
+              href='#patients'
+            >
+              Cancel
+            </Button>
+          </Row>
+          {/* </Col>
+          </Form.Row> */}
+        </Form>
+        {/* </div> */}
+        {/* </div> */}
+      </Fragment>
     )
   }
 }

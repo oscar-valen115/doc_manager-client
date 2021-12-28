@@ -205,7 +205,7 @@ class DoctorProfile extends Component {
           variant="danger"
           onClick={this.handleDeleteDoctor}
         >
-          Delete Patient
+          Delete Doctor
         </Button>
 
       </Form>
