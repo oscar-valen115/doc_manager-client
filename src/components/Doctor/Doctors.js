@@ -35,7 +35,7 @@ class Doctors extends Component {
         </Row>
         <hr></hr>
         <Row>
-          <Table striped bordered hover>
+          <Table borderless striped hover>
             <thead>
               <tr>
                 <th>ID</th>

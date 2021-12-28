@@ -7,7 +7,6 @@ import { createPatient, getPatientsFromApi } from '../../api/patient'
 import Accordion from 'react-bootstrap/Accordion'
 import Card from 'react-bootstrap/Card'
 import Row from 'react-bootstrap/Row'
-// import Col from 'react-bootstrap/Col'
 
 class CreatePatient extends Component {
   constructor (props) {
@@ -65,13 +64,12 @@ class CreatePatient extends Component {
       </Fragment>
     ))
     return (
-      // <div className="row">
-      // <div className="col-sm-10 col-md-10 mx-auto mt-3">
       <Fragment>
-        <h3>New Patient</h3>
+        <Row className='ml-1'>
+          <h3>New Patient</h3>
+        </Row>
+        <hr />
         <Form onSubmit={this.onCreatePatient}>
-          {/* <Form.Row> */}
-          {/* <Col> */}
           <Accordion defaultActiveKey='0'>
             <Card>
               <Accordion.Toggle as={Card.Header} eventKey="0">
@@ -136,20 +134,10 @@ class CreatePatient extends Component {
                       {doctorDataJsx}
                     </Form.Control>
                   </Form.Group>
-                  {/* <StyledButton
-                      variant="primary"
-                      type="submit"
-                    >
-                    Add
-                    </StyledButton> */}
                 </Card.Body>
               </Accordion.Collapse>
             </Card>
           </Accordion>
-          {/* </Col>
-          </Form.Row>
-          <Form.Row>
-            <Col className='ml-auto'> */}
           <Row className='mt-2'>
             <StyledButton
               type="submit"
@@ -166,11 +154,7 @@ class CreatePatient extends Component {
               Cancel
             </Button>
           </Row>
-          {/* </Col>
-          </Form.Row> */}
         </Form>
-        {/* </div> */}
-        {/* </div> */}
       </Fragment>
     )
   }
