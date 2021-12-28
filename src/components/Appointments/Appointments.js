@@ -50,7 +50,7 @@ class Appointments extends Component {
                 <td>01-01-1900</td>
                 <td>Checked In</td>
                 <td>
-                  <ButtonGroup aria-label="Basic example">
+                  <ButtonGroup aria-label="updateStatus">
                     <Button variant="secondary">Check Out</Button>
                     <Button variant="secondary">View Profile</Button>
                   </ButtonGroup>

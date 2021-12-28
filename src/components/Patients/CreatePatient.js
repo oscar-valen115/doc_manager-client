@@ -161,11 +161,4 @@ class CreatePatient extends Component {
   }
 }
 
-// const StyledButton = styled(Button)`
-//  background-color: #00bd9c;
-// `
-// const StyledForm = styled(Form)`
-//   background-color: #dde5ee;
-// `
-
 export default withRouter(CreatePatient)

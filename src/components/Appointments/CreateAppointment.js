@@ -196,8 +196,4 @@ class CreateAppointment extends Component {
   }
 }
 
-// const StyledButton = styled(Button)`
-//  background-color: #00bd9c;
-// `
-
 export default withRouter(CreateAppointment)
