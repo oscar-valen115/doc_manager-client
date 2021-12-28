@@ -4,6 +4,8 @@ import Table from 'react-bootstrap/Table'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/Row'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCalendarPlus } from '@fortawesome/free-solid-svg-icons'
 // import _ from 'lodash'
 // import Moment from 'react-moment'
 // import styled from 'styled-components'
@@ -21,7 +23,10 @@ class Appointments extends Component {
             <h3>Appointments</h3>
           </div>
           <div className='ml-auto'>
-            <Button variant='outline-success' href='#create-appointment'>New Appt</Button>
+            <Button variant='outline-success' href='#create-appointment'>
+              <FontAwesomeIcon className='mr-1' icon={faCalendarPlus} />
+              New Appt
+            </Button>
           </div>
         </Row>
         <hr></hr>
