@@ -25,7 +25,7 @@ class HomePage extends Component {
       <Fragment>
         <Row>
           <div>
-            <h3>Appointments today</h3>
+            <h3>Appointments Today</h3>
           </div>
           {/* <div className='ml-auto'>
             <Button variant='outline-success' href='#create-appointment'>New Appt</Button>
