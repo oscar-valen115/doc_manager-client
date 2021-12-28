@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
 import Accordion from 'react-bootstrap/Accordion'
 import Card from 'react-bootstrap/Card'
+import Row from 'react-bootstrap/Row'
 import { updatePatient, deletePatient, getPatientsFromApi } from '../../api/patient'
 
 class PatientProfile extends Component {
@@ -98,7 +99,22 @@ class PatientProfile extends Component {
 
      return (
        <Fragment>
-         <h3>Patient</h3>
+         <Row>
+           <div>
+             <h3>Patient</h3>
+           </div>
+           <div className='ml-auto'>
+             <Button
+               type='button'
+               variant='outline-danger'
+               onClick={this.handleDeletePatient}
+               className="mr-3"
+             >
+            Delete Patient
+             </Button>
+           </div>
+         </Row>
+         <hr></hr>
          <Form onSubmit={this.handleUpdatePatient}>
            <Accordion defaultActiveKey='0'>
              <Card>
@@ -216,42 +232,31 @@ class PatientProfile extends Component {
                          type="text"
                          onChange={this.handleChange}
                        >
-                         {/* <option value={patient.assigned_doctor.id}>Dr. {patient.assigned_doctor.first_name} {patient.assigned_doctor.last_name} Specialty: {patient.assigned_doctor.specialty}</option> */}
                          {doctorDataJsx}
                        </Form.Control>
                      </Form.Group>
                    </Form.Row>
-                   {/* <Button
-                     variant="primary"
-                     type="submit"
-                   >
-            Update Profile
-                   </Button>
-                   <Button
-                     type='button'
-                     variant='danger'
-                     onClick={this.handleDeletePatient}
-                   >
-            Delete Patient
-                   </Button> */}
                  </Card.Body>
                </Accordion.Collapse>
              </Card>
            </Accordion>
-           <Button
-             variant="primary"
-             type="submit"
-           >
+           <Row className='mt-2'>
+             <Button
+               variant="primary"
+               type="submit"
+               className="ml-auto mr-2"
+             >
             Update Profile
-           </Button>
-           <Button
-             type='button'
-             variant='danger'
-             onClick={this.handleDeletePatient}
-           >
-            Delete Patient
-           </Button>
-
+             </Button>
+             <Button
+               type='button'
+               href="#patients"
+               variant='danger'
+               className="mr-3"
+             >
+              Cancel
+             </Button>
+           </Row>
          </Form>
        </Fragment>
      )
