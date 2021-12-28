@@ -3,6 +3,8 @@ import { withRouter, Link } from 'react-router-dom'
 import Table from 'react-bootstrap/Table'
 import Row from 'react-bootstrap/Row'
 import Button from 'react-bootstrap/Button'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
 // import { deletePatient, getPatientsFromApi } from '../../api/patient'
 
 class Patients extends Component {
@@ -47,7 +49,13 @@ class Patients extends Component {
             <h3>Patients</h3>
           </div>
           <div className='ml-auto'>
-            <Button variant='outline-success' href='#create-patient'>New Patient</Button>
+            <Button
+              variant='outline-success'
+              href='#create-patient'
+            >
+              <FontAwesomeIcon className='mr-1' icon={faUserPlus} />
+              New Patient
+            </Button>
           </div>
         </Row>
         <hr></hr>
