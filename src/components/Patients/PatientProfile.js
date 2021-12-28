@@ -99,7 +99,7 @@ class PatientProfile extends Component {
 
      return (
        <Fragment>
-         <Row>
+         <Row className='ml-1'>
            <div>
              <h3>Patient</h3>
            </div>
