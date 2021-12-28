@@ -1,10 +1,13 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { withRouter } from 'react-router-dom'
 // import messages from '../AutoDismissAlert/messages'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import Row from 'react-bootstrap/Row'
 import styled from 'styled-components'
 import { createDoctor, getDoctorsFromApi } from '../../api/doctor'
+import Accordion from 'react-bootstrap/Accordion'
+import Card from 'react-bootstrap/Card'
 
 class CreateDoctor extends Component {
   constructor (props) {
@@ -59,68 +62,91 @@ class CreateDoctor extends Component {
     const { email, firstName, lastName, specialty } = this.state
 
     return (
-      <div className="row">
-        <div className="col-sm-10 col-md-8 mx-auto mt-5">
-          <h3>Create New Doctor</h3>
-          <Form onSubmit={this.onCreateDoctor}>
-            <Form.Group controlId="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                required
-                type="email"
-                name="email"
-                value={email}
-                placeholder="Enter Email"
-                onChange={this.handleChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="firstName">
-              <Form.Label>First Name</Form.Label>
-              <Form.Control
-                required
-                type="text"
-                name="firstName"
-                value={firstName}
-                placeholder="Enter First Name"
-                onChange={this.handleChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="lastName">
-              <Form.Label>Last Name</Form.Label>
-              <Form.Control
-                required
-                name="lastName"
-                value={lastName}
-                type="text"
-                placeholder="Enter Last Name"
-                onChange={this.handleChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="specialty">
-              <Form.Label>Specialty</Form.Label>
-              <Form.Control
-                required
-                name="specialty"
-                as='select'
-                type="text"
-                placeholder="Choose Specialty"
-                onChange={this.handleChange}
-              >
-                <option value={specialty}>Select a Specialty</option>
-                <option value='General'>General</option>
-                <option value='Pediatrics'>Pediatrics</option>
-                <option value='Cardiology'>Cardiology</option>
-              </Form.Control>
-            </Form.Group>
+      <Fragment>
+        <Row className='ml-1'>
+          <h3>New Doctor</h3>
+        </Row>
+        <hr />
+        <Form onSubmit={this.onCreateDoctor}>
+          <Accordion defaultActiveKey='0'>
+            <Card>
+              <Accordion.Toggle as={Card.Header} eventKey="0">
+                Basic Information
+              </Accordion.Toggle>
+              <Accordion.Collapse eventKey="0">
+                <Card.Body>
+                  <Form.Group controlId="email">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control
+                      required
+                      type="email"
+                      name="email"
+                      value={email}
+                      placeholder="Enter Email"
+                      onChange={this.handleChange}
+                    />
+                  </Form.Group>
+                  <Form.Group controlId="firstName">
+                    <Form.Label>First Name</Form.Label>
+                    <Form.Control
+                      required
+                      type="text"
+                      name="firstName"
+                      value={firstName}
+                      placeholder="Enter First Name"
+                      onChange={this.handleChange}
+                    />
+                  </Form.Group>
+                  <Form.Group controlId="lastName">
+                    <Form.Label>Last Name</Form.Label>
+                    <Form.Control
+                      required
+                      name="lastName"
+                      value={lastName}
+                      type="text"
+                      placeholder="Enter Last Name"
+                      onChange={this.handleChange}
+                    />
+                  </Form.Group>
+                  <Form.Group controlId="specialty">
+                    <Form.Label>Specialty</Form.Label>
+                    <Form.Control
+                      required
+                      name="specialty"
+                      as='select'
+                      type="text"
+                      placeholder="Choose Specialty"
+                      onChange={this.handleChange}
+                    >
+                      <option value={specialty}>Select a Specialty</option>
+                      <option value='General'>General</option>
+                      <option value='Pediatrics'>Pediatrics</option>
+                      <option value='Cardiology'>Cardiology</option>
+                    </Form.Control>
+                  </Form.Group>
+                </Card.Body>
+              </Accordion.Collapse>
+            </Card>
+          </Accordion>
+          <Row className='mt-2'>
             <StyledButton
               variant="primary"
               type="submit"
+              className="ml-auto mr-2"
             >
               Add
             </StyledButton>
-          </Form>
-        </div>
-      </div>
+            <Button
+              variant='danger'
+              type='button'
+              className="mr-3"
+              href='#doctors'
+            >
+              Cancel
+            </Button>
+          </Row>
+        </Form>
+      </Fragment>
     )
   }
 }
