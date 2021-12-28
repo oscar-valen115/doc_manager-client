@@ -4,6 +4,8 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
+import Accordion from 'react-bootstrap/Accordion'
+import Card from 'react-bootstrap/Card'
 import { updateDoctor, deleteDoctor, getDoctorsFromApi } from '../../api/doctor'
 
 class DoctorProfile extends Component {
@@ -97,32 +99,39 @@ class DoctorProfile extends Component {
         </Row>
         <hr></hr>
         <Form onSubmit={this.handleUpdateDoctor}>
-          <Form.Row>
-            <Form.Group
-              as={Col}
-              controlId="first_name"
-            >
-              <Form.Label>First Name</Form.Label>
-              <Form.Control
-                type="text"
-                name='first_name'
-                value={doctor.first_name}
-                placeholder='Enter First Name'
-                onChange={this.handleChange} />
-            </Form.Group>
+          <Accordion defaultActiveKey='0'>
+            <Card>
+              <Accordion.Toggle as={Card.Header} eventKey="0">
+                Basic Information
+              </Accordion.Toggle>
+              <Accordion.Collapse eventKey="0">
+                <Card.Body>
+                  <Form.Row>
+                    <Form.Group
+                      as={Col}
+                      controlId="first_name"
+                    >
+                      <Form.Label>First Name</Form.Label>
+                      <Form.Control
+                        type="text"
+                        name='first_name'
+                        value={doctor.first_name}
+                        placeholder='Enter First Name'
+                        onChange={this.handleChange} />
+                    </Form.Group>
 
-            <Form.Group as={Col} controlId="last_name">
-              <Form.Label>Last Name</Form.Label>
-              <Form.Control
-                type="text"
-                name='last_name'
-                value={doctor.last_name}
-                placeholder='Enter Last Name'
-                onChange={this.handleChange} />
-            </Form.Group>
-          </Form.Row>
+                    <Form.Group as={Col} controlId="last_name">
+                      <Form.Label>Last Name</Form.Label>
+                      <Form.Control
+                        type="text"
+                        name='last_name'
+                        value={doctor.last_name}
+                        placeholder='Enter Last Name'
+                        onChange={this.handleChange} />
+                    </Form.Group>
+                  </Form.Row>
 
-          {/* <Form.Group controlId="street_address">
+                  {/* <Form.Group controlId="street_address">
           <Form.Label>Street Address</Form.Label>
           <Form.Control
             name='street_address'
@@ -131,8 +140,8 @@ class DoctorProfile extends Component {
             onChange={this.handleChange} />
         </Form.Group> */}
 
-          <Form.Row>
-            {/* <Form.Group as={Col} controlId="city">
+                  <Form.Row>
+                    {/* <Form.Group as={Col} controlId="city">
             <Form.Label>City</Form.Label>
             <Form.Control
               type="text"
@@ -152,27 +161,27 @@ class DoctorProfile extends Component {
               onChange={this.handleChange} />
           </Form.Group> */}
 
-            <Form.Group as={Col} controlId="specialty">
-              <Form.Label>Specialty</Form.Label>
-              <Form.Control
-                name='specialty'
-                value={doctor.specialty}
-                onChange={this.handleChange} />
-            </Form.Group>
-          </Form.Row>
+                    <Form.Group as={Col} controlId="specialty">
+                      <Form.Label>Specialty</Form.Label>
+                      <Form.Control
+                        name='specialty'
+                        value={doctor.specialty}
+                        onChange={this.handleChange} />
+                    </Form.Group>
+                  </Form.Row>
 
-          <Form.Row>
-            <Form.Group as={Col} controlId="email">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="email"
-                name='email'
-                value={doctor.email}
-                placeholder='Enter Email'
-                onChange={this.handleChange} />
-            </Form.Group>
+                  <Form.Row>
+                    <Form.Group as={Col} controlId="email">
+                      <Form.Label>Email</Form.Label>
+                      <Form.Control
+                        type="email"
+                        name='email'
+                        value={doctor.email}
+                        placeholder='Enter Email'
+                        onChange={this.handleChange} />
+                    </Form.Group>
 
-            {/* <Form.Group as={Col} controlId="dob">
+                    {/* <Form.Group as={Col} controlId="dob">
             <Form.Label>Date of Birth</Form.Label>
             <Form.Control
               type="text"
@@ -181,10 +190,10 @@ class DoctorProfile extends Component {
               placeholder={filteredDoctorData[0].dob}
               onChange={this.handleChange} />
           </Form.Group> */}
-          </Form.Row>
+                  </Form.Row>
 
-          <Form.Row>
-            {/* <Form.Group as={Col} controlId="allergies">
+                  <Form.Row>
+                    {/* <Form.Group as={Col} controlId="allergies">
             <Form.Label>Allergies</Form.Label>
             <Form.Control
               name='allergies'
@@ -193,7 +202,7 @@ class DoctorProfile extends Component {
               placeholder={filteredDoctorData[0].allergies}
               onChange={this.handleChange} />
           </Form.Group> */}
-            {/* <Form.Group as={Col} controlId="assigned_doctor">
+                    {/* <Form.Group as={Col} controlId="assigned_doctor">
             <Form.Label className="my-1 mr-2">
               Assigned Doctor
             </Form.Label>
@@ -210,22 +219,27 @@ class DoctorProfile extends Component {
               {doctorDataJsx}
             </Form.Control>
           </Form.Group> */}
-          </Form.Row>
-
-          <Button
-            variant="primary"
-            type="submit"
-          >
-    Update Profile
-          </Button>
-          <Button
-            type='button'
-            variant="danger"
-            href='#doctors'
-          >
-          Cancel
-          </Button>
-
+                  </Form.Row>
+                </Card.Body>
+              </Accordion.Collapse>
+            </Card>
+          </Accordion>
+          <Row className='mt-2'>
+            <Button
+              variant="primary"
+              type="submit"
+              className="ml-auto mr-2"
+            >
+              Update Profile
+            </Button>
+            <Button
+              type='button'
+              variant="danger"
+              href='#doctors'
+            >
+              Cancel
+            </Button>
+          </Row>
         </Form>
       </Fragment>
     )
