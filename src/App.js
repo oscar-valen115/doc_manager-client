@@ -89,148 +89,152 @@ class App extends Component {
           />
         ))}
         <main className="container">
-          <Route
-            path='/sign-up'
-            render={() => (
-              <SignUp
-                msgAlert={this.msgAlert}
-                setUser={this.setUser} />
-            )}/>
-          <Route
-            exact path='/'
-            render={() => (
-              <HomePage
-                user={user}
-                patients={patients}
-                appointments={appointments}
-                doctors={doctors}
-              />
-            )}/>
-          <Route
-            path='/sign-in'
-            render={() => (
-              <SignIn
-                msgAlert={this.msgAlert}
-                setUser={this.setUser}
-                getUserTokenFromApp={this.getUserTokenFromApp}
-                setPatientState={this.setPatientState}
-                setDoctorsState={this.setDoctorsState}
-              />
-            )} />
-          <AuthenticatedRoute
-            user={user}
-            path='/sign-out'
-            render={() => (
-              <SignOut
-                msgAlert={this.msgAlert}
-                clearUser={this.clearUser}
-                user={user} />
-            )} />
-          <AuthenticatedRoute
-            path='/change-password'
-            user={user}
-            render={() => (
-              <ChangePassword
-                msgAlert={this.msgAlert}
-                user={user} />
-            )} />
-          <AuthenticatedRoute
-            exact path='/patients'
-            user={user}
-            render={() => (
-              <Patients
-                msgAlert={this.msgAlert}
-                user={user}
-                patients={patients}
-                doctors={doctors}
-                setPatientState={this.setPatientState} />
-            )} />
-          <AuthenticatedRoute
-            exact path='/patients/:patientId'
-            user={user}
-            doctors={doctors}
-            patients={patients}
-            render={() => (
-              <PatientProfile
-                user={user}
-                doctors={doctors}
-                patients={patients}
-                msgAlert={this.msgAlert}
-                setPatientState={this.setPatientState}
-                setDoctorsState={this.setDoctorsState} />
-            )} />
-          <AuthenticatedRoute
-            path='/create-patient'
-            user={user}
-            render={() => (
-              <CreatePatient
-                msgAlert={this.msgAlert}
-                user={user}
-                patients={patients}
-                doctors={doctors}
-                setPatientState={this.setPatientState} />
-            )} />
-          <AuthenticatedRoute
-            path='/appointments'
-            user={user}
-            render={() => (
-              <Appointments
-                msgAlert={this.msgAlert}
-                user={user}
-                patients={patients}
-                appointments={appointments} />
-            )} />
-          <AuthenticatedRoute
-            path='/create-appointment'
-            user={user}
-            patients={patients}
-            doctors={doctors}
-            render={() => (
-              <CreateAppointment
-                msgAlert={this.msgAlert}
-                user={user}
-                patients={patients}
-                doctors={doctors}
-                appointments={appointments} />
-            )} />
-          <AuthenticatedRoute
-            exact path='/doctors'
-            user={user}
-            render={() => (
-              <Doctors
-                msgAlert={this.msgAlert}
-                getUserTokenFromApp={this.getUserTokenFromApp}
-                setDoctorsState={this.setDoctorsState}
-                user={user}
-                patients={patients}
-                doctors={doctors} />
-            )} />
-          <AuthenticatedRoute
-            path='/create-doctor'
-            user={user}
-            render={() => (
-              <CreateDoctor
-                msgAlert={this.msgAlert}
-                getUserTokenFromApp={this.getUserTokenFromApp}
-                setDoctorsState={this.setDoctorsState}
-                user={user}
-                patients={patients}
-                doctors={doctors} />
-            )} />
-          <AuthenticatedRoute
-            exact path='/doctors/:doctorId'
-            user={user}
-            doctors={doctors}
-            patients={patients}
-            render={() => (
-              <DoctorProfile
-                user={user}
-                doctors={doctors}
-                patients={patients}
-                msgAlert={this.msgAlert}
-                setPatientState={this.setPatientState}
-                setDoctorsState={this.setDoctorsState} />
-            )} />
+          <div className="col-sm-10 col-md-8 mx-auto mt-3">
+            <Route
+              path='/sign-up'
+              render={() => (
+                <SignUp
+                  msgAlert={this.msgAlert}
+                  setUser={this.setUser} />
+              )}/>
+            <Route
+              path='/sign-in'
+              render={() => (
+                <SignIn
+                  msgAlert={this.msgAlert}
+                  setUser={this.setUser}
+                  getUserTokenFromApp={this.getUserTokenFromApp}
+                  setPatientState={this.setPatientState}
+                  setDoctorsState={this.setDoctorsState}
+                />
+              )} />
+            <AuthenticatedRoute
+              user={user}
+              path='/sign-out'
+              render={() => (
+                <SignOut
+                  msgAlert={this.msgAlert}
+                  clearUser={this.clearUser}
+                  user={user} />
+              )} />
+            <AuthenticatedRoute
+              path='/change-password'
+              user={user}
+              render={() => (
+                <ChangePassword
+                  msgAlert={this.msgAlert}
+                  user={user} />
+              )} />
+          </div>
+          <div className="col-sm-10 col-md-12 mx-auto mt-3">
+            <Route
+              exact path='/'
+              render={() => (
+                <HomePage
+                  user={user}
+                  patients={patients}
+                  appointments={appointments}
+                  doctors={doctors}
+                />
+              )}/>
+            <AuthenticatedRoute
+              exact path='/patients'
+              user={user}
+              render={() => (
+                <Patients
+                  msgAlert={this.msgAlert}
+                  user={user}
+                  patients={patients}
+                  doctors={doctors}
+                  setPatientState={this.setPatientState} />
+              )} />
+            <AuthenticatedRoute
+              exact path='/patients/:patientId'
+              user={user}
+              doctors={doctors}
+              patients={patients}
+              render={() => (
+                <PatientProfile
+                  user={user}
+                  doctors={doctors}
+                  patients={patients}
+                  msgAlert={this.msgAlert}
+                  setPatientState={this.setPatientState}
+                  setDoctorsState={this.setDoctorsState} />
+              )} />
+            <AuthenticatedRoute
+              path='/create-patient'
+              user={user}
+              render={() => (
+                <CreatePatient
+                  msgAlert={this.msgAlert}
+                  user={user}
+                  patients={patients}
+                  doctors={doctors}
+                  setPatientState={this.setPatientState} />
+              )} />
+            <AuthenticatedRoute
+              path='/appointments'
+              user={user}
+              render={() => (
+                <Appointments
+                  msgAlert={this.msgAlert}
+                  user={user}
+                  patients={patients}
+                  appointments={appointments} />
+              )} />
+            <AuthenticatedRoute
+              path='/create-appointment'
+              user={user}
+              patients={patients}
+              doctors={doctors}
+              render={() => (
+                <CreateAppointment
+                  msgAlert={this.msgAlert}
+                  user={user}
+                  patients={patients}
+                  doctors={doctors}
+                  appointments={appointments} />
+              )} />
+            <AuthenticatedRoute
+              exact path='/doctors'
+              user={user}
+              render={() => (
+                <Doctors
+                  msgAlert={this.msgAlert}
+                  getUserTokenFromApp={this.getUserTokenFromApp}
+                  setDoctorsState={this.setDoctorsState}
+                  user={user}
+                  patients={patients}
+                  doctors={doctors} />
+              )} />
+            <AuthenticatedRoute
+              path='/create-doctor'
+              user={user}
+              render={() => (
+                <CreateDoctor
+                  msgAlert={this.msgAlert}
+                  getUserTokenFromApp={this.getUserTokenFromApp}
+                  setDoctorsState={this.setDoctorsState}
+                  user={user}
+                  patients={patients}
+                  doctors={doctors} />
+              )} />
+            <AuthenticatedRoute
+              exact path='/doctors/:doctorId'
+              user={user}
+              doctors={doctors}
+              patients={patients}
+              render={() => (
+                <DoctorProfile
+                  user={user}
+                  doctors={doctors}
+                  patients={patients}
+                  msgAlert={this.msgAlert}
+                  setPatientState={this.setPatientState}
+                  setDoctorsState={this.setDoctorsState} />
+              )} />
+          </div>
         </main>
       </Fragment>
     )

@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import Table from 'react-bootstrap/Table'
-// import Button from 'react-bootstrap/Button'
+import Row from 'react-bootstrap/Row'
+import Button from 'react-bootstrap/Button'
 // import { deletePatient, getPatientsFromApi } from '../../api/patient'
 
 class Patients extends Component {
@@ -14,9 +15,6 @@ class Patients extends Component {
     //   }
     //   // }
     // })
-
-    // console.log('new patient details data: ', patients)
-    // console.log('patient details func: ', patientDetails)
 
     // const handlePatientProfile = () => {}
 
@@ -35,7 +33,7 @@ class Patients extends Component {
                 to={`/patients/${patient.id}`}
                 patients={this.props.patients}
               >
-                View Profile
+                View
               </Link>
             </td>
           </tr>
@@ -44,7 +42,16 @@ class Patients extends Component {
 
     return (
       <Fragment>
-        <div>Patients Page
+        <Row>
+          <div>
+            <h3>Patients</h3>
+          </div>
+          <div className='ml-auto'>
+            <Button variant='outline-success' href='#create-patient'>New Patient</Button>
+          </div>
+        </Row>
+        <hr></hr>
+        <Row>
           <Table striped bordered hover>
             <thead>
               <tr>
@@ -61,7 +68,7 @@ class Patients extends Component {
               {patientsJsx}
             </tbody>
           </Table>
-        </div>
+        </Row>
       </Fragment>
     )
   }

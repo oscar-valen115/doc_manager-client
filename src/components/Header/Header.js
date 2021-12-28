@@ -2,10 +2,21 @@ import React, { Fragment } from 'react'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import NavDropdown from 'react-bootstrap/NavDropdown'
+import Form from 'react-bootstrap/Form'
+// import Button from 'react-bootstrap/Button'
 import styled from 'styled-components'
 
 const authenticatedOptions = (
   <Fragment>
+    <Form className="d-flex">
+      {/* <Form.Control
+        type="search"
+        placeholder="Search"
+        className="ml-2"
+        aria-label="Search"
+      />
+      <Button variant="outline-success">Search</Button> */}
+    </Form>
     <NavDropdown title="Patients" id="collasible-nav-dropdown">
       <NavDropdown.Item href="#patients">All Patients</NavDropdown.Item>
       {/* <NavDropdown.Item href="#admitted-patients">Admitted Patients</NavDropdown.Item> */}

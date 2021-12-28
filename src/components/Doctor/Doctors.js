@@ -1,13 +1,12 @@
 import React, { Component, Fragment } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import Table from 'react-bootstrap/Table'
-// import ButtonGroup from 'react-bootstrap/ButtonGroup'
-// import Button from 'react-bootstrap/Button'
+import Row from 'react-bootstrap/Row'
+import Button from 'react-bootstrap/Button'
 
 class Doctors extends Component {
   render () {
     const { doctors } = this.props
-    // console.log('patients prop data: ', doctors)
     const doctorsJsx = (
       doctors.map(doctor => (
         <Fragment key={doctor.id}>
@@ -18,7 +17,7 @@ class Doctors extends Component {
             <td>{doctor.email}</td>
             <td>{doctor.specialty}</td>
             <td>
-              <Link to={`/doctors/${doctor.id}`}>View Profile</Link>
+              <Link to={`/doctors/${doctor.id}`}>View</Link>
             </td>
           </tr>
         </Fragment>
@@ -26,7 +25,16 @@ class Doctors extends Component {
 
     return (
       <Fragment>
-        <div>Doctors Page
+        <Row>
+          <div>
+            <h3>Doctors</h3>
+          </div>
+          <div className='ml-auto'>
+            <Button variant='outline-success' href='#create-doctor'>New Doctor</Button>
+          </div>
+        </Row>
+        <hr></hr>
+        <Row>
           <Table striped bordered hover>
             <thead>
               <tr>
@@ -42,7 +50,7 @@ class Doctors extends Component {
               {doctorsJsx}
             </tbody>
           </Table>
-        </div>
+        </Row>
       </Fragment>
     )
   }
