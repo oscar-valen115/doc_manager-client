@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import styled from 'styled-components'
+// import styled from 'styled-components'
 import DatePicker from 'react-date-picker'
 
 class CreateAppointment extends Component {
@@ -81,110 +81,123 @@ class CreateAppointment extends Component {
     ))
     console.log('current state: ', this.state)
     return (
-      <div className="row">
-        <div className="col-sm-10 col-md-8 mx-auto mt-5">
-          <h3>Create A New Appointment</h3>
-          <Form>
-            <fieldset>
-              <Form.Group as={Row}>
-                <Form.Label column sm={2}>Date:</Form.Label>
-                <Col sm={10}>
-                  <DatePicker
-                    name='date'
-                    minDate={new Date()}
-                    clearIcon={null}
-                    value={date}
-                    format={'MM-dd-yyyy'}
-                    onChange={this.handleDateChange}
-                  />
-                  <Form.Check
-                    type='checkbox'
-                    inline label='This Week'
-                    name='thisWeekToggle'
-                    value={thisWeekToggle}
-                    checked={thisWeekToggleChecked}
-                    onChange={this.handleWeekToggle}
-                  />
-                  <Form.Check
-                    type='checkbox'
-                    inline label='This Month'
-                    name='thisMonthToggle'
-                    value={thisMonthToggle}
-                    checked={thisMonthToggleChecked}
-                    onChange={this.handleMonthToggle}
-                  />
-                </Col>
-              </Form.Group>
-            </fieldset>
+      <Fragment>
+        <Row className='ml-1'>
+          <h3>New Appointment</h3>
+        </Row>
+        <hr />
+        <Form>
+          <fieldset>
             <Form.Group as={Row}>
-              <Form.Label column sm={2}>Patient:</Form.Label>
+              <Form.Label column sm={2}>Date:</Form.Label>
               <Col sm={10}>
-                <Form.Control
-                  as='select'
-                  className="my-1 mr-sm-2"
-                  name='patient'
-                  type="text"
-                  onChange={this.handleChange}
-                >
-                  <option value={patient}>Select a Patient</option>
-                  {patientsDataJsx}
-                </Form.Control>
+                <DatePicker
+                  name='date'
+                  minDate={new Date()}
+                  clearIcon={null}
+                  value={date}
+                  format={'MM-dd-yyyy'}
+                  onChange={this.handleDateChange}
+                />
+                <Form.Check
+                  type='checkbox'
+                  className='ml-4'
+                  inline label='This Week'
+                  name='thisWeekToggle'
+                  value={thisWeekToggle}
+                  checked={thisWeekToggleChecked}
+                  onChange={this.handleWeekToggle}
+                />
+                <Form.Check
+                  type='checkbox'
+                  inline label='This Month'
+                  name='thisMonthToggle'
+                  value={thisMonthToggle}
+                  checked={thisMonthToggleChecked}
+                  onChange={this.handleMonthToggle}
+                />
               </Col>
             </Form.Group>
-            <Form.Group as={Row}>
-              <Form.Label column sm={2}>Doctor:</Form.Label>
-              <Col sm={10}>
-                <Form.Control
-                  as='select'
-                  className="my-1 mr-sm-2"
-                  name="doctor"
-                  type="text"
-                  onChange={this.handleChange}
-                >
-                  <option value={doctor}>Select a Doctor</option>
-                  {doctorsDataJsx}
-                </Form.Control>
-              </Col>
-            </Form.Group>
-            <Form.Group as={Row}>
-              <Form.Label column sm={2}>Availability:</Form.Label>
-              <Col sm={10}>
-                <Form.Control
-                  as="select"
-                  name="time"
-                  value={time}
-                  onChange={this.handleChange}
-                >
-                  <option value={time}>Select a Time Slot</option>
-                  {/* {doctorsDataJsx} */}
-                </Form.Control>
-              </Col>
-            </Form.Group>
-            <Form.Group controlId="reasonForVisit">
-              <Form.Label>Reason for Visit</Form.Label>
+          </fieldset>
+          <Form.Group as={Row}>
+            <Form.Label column sm={2}>Patient:</Form.Label>
+            <Col sm={10}>
               <Form.Control
-                name='reasonForVisit'
-                value={reasonForVisit}
-                as="textarea"
-                rows={3}
+                as='select'
+                className="my-1 mr-sm-2"
+                name='patient'
+                type="text"
                 onChange={this.handleChange}
-              />
-            </Form.Group>
-            <StyledButton
-              variant="primary"
+              >
+                <option value={patient}>Select a Patient</option>
+                {patientsDataJsx}
+              </Form.Control>
+            </Col>
+          </Form.Group>
+          <Form.Group as={Row}>
+            <Form.Label column sm={2}>Doctor:</Form.Label>
+            <Col sm={10}>
+              <Form.Control
+                as='select'
+                className="my-1 mr-sm-2"
+                name="doctor"
+                type="text"
+                onChange={this.handleChange}
+              >
+                <option value={doctor}>Select a Doctor</option>
+                {doctorsDataJsx}
+              </Form.Control>
+            </Col>
+          </Form.Group>
+          <Form.Group as={Row}>
+            <Form.Label column sm={2}>Availability:</Form.Label>
+            <Col sm={10}>
+              <Form.Control
+                as="select"
+                name="time"
+                value={time}
+                onChange={this.handleChange}
+              >
+                <option value={time}>Select a Time Slot</option>
+                {/* {doctorsDataJsx} */}
+              </Form.Control>
+            </Col>
+          </Form.Group>
+          <Form.Group controlId="reasonForVisit">
+            <Form.Label>Reason for Visit</Form.Label>
+            <Form.Control
+              name='reasonForVisit'
+              value={reasonForVisit}
+              as="textarea"
+              rows={3}
+              onChange={this.handleChange}
+            />
+          </Form.Group>
+          <Row className='mt-2'>
+            <Button
+              variant="secondary"
               type="submit"
+              className="ml-auto mr-2"
             >
               Add
-            </StyledButton>
-          </Form>
-        </div>
-      </div>
+            </Button>
+            <Button
+              variant='danger'
+              type='button'
+              className="mr-3"
+              href='#doctors'
+            >
+              Cancel
+            </Button>
+          </Row>
+        </Form>
+      </Fragment>
     )
   }
 }
 
-const StyledButton = styled(Button)`
- background-color: #00bd9c;
-`
+// const StyledButton = styled(Button)`
+//  background-color: #00bd9c;
+// `
 
 export default withRouter(CreateAppointment)
