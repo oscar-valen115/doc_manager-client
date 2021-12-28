@@ -3,6 +3,8 @@ import { withRouter, Link } from 'react-router-dom'
 import Table from 'react-bootstrap/Table'
 import Row from 'react-bootstrap/Row'
 import Button from 'react-bootstrap/Button'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
 
 class Doctors extends Component {
   render () {
@@ -30,7 +32,14 @@ class Doctors extends Component {
             <h3>Doctors</h3>
           </div>
           <div className='ml-auto'>
-            <Button variant='outline-success' href='#create-doctor'>New Doctor</Button>
+            {/* <i className="fas fa-user-plus"></i> */}
+            <Button
+              variant='outline-success'
+              href='#create-doctor'
+            >
+              <FontAwesomeIcon className='mr-1' icon={faUserPlus} />
+              New Doctor
+            </Button>
           </div>
         </Row>
         <hr></hr>
