@@ -29,16 +29,16 @@ class CreateAppointment extends Component {
   handleDateChange = event => {
     console.log('event data: ', event)
     // this.setState({ [event.target.name]: event.target.value })
-    console.log('date state after event: ', this.state.date)
+    // console.log('date state after event: ', this.state.date)
     // this.setState({ date: new Date() })
     if (this.state.thisWeekToggleChecked || this.state.thisMonthToggleChecked) {
       this.setState({ date: event, thisWeekToggle: '', thisWeekToggleChecked: false, thisMonthToggle: '', thisMonthToggleChecked: false })
     } else if (!this.state.date) {
       this.setState({ date: event })
+    } else {
+      this.setState({ date: event })
     }
-    // else {
-    //   this.setState({ date: event })
-    // }
+    console.log('date state after event: ', this.state.date)
   }
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value })
@@ -57,11 +57,17 @@ class CreateAppointment extends Component {
 
   render () {
     const { patients, doctors, appointments } = this.props
-    const { date,
-      time, patient,
-      doctor, reasonForVisit,
-      thisWeekToggle, thisMonthToggle,
-      thisWeekToggleChecked, thisMonthToggleChecked } = this.state
+
+    const {
+      date,
+      time,
+      patient,
+      doctor,
+      reasonForVisit,
+      thisWeekToggle,
+      thisMonthToggle,
+      thisWeekToggleChecked,
+      thisMonthToggleChecked } = this.state
     console.log('appointments prop data: ', appointments)
     const doctorsDataJsx = doctors.map(doctor => (
       <Fragment key={doctor.id}>
@@ -79,34 +85,37 @@ class CreateAppointment extends Component {
         <div className="col-sm-10 col-md-8 mx-auto mt-5">
           <h3>Create A New Appointment</h3>
           <Form>
-            <Form.Group as={Row}>
-              <Form.Label column sm={2}>Date:</Form.Label>
-              <Col sm={10}>
-                <DatePicker
-                  name='date'
-                  clearIcon={null}
-                  value={date}
-                  format={'MM-dd-yyyy'}
-                  onChange={this.handleDateChange}
-                />
-                <Form.Check
-                  type='checkbox'
-                  inline label='This Week'
-                  name='thisWeekToggle'
-                  value={thisWeekToggle}
-                  checked={thisWeekToggleChecked}
-                  onChange={this.handleWeekToggle}
-                />
-                <Form.Check
-                  type='checkbox'
-                  inline label='This Month'
-                  name='thisMonthToggle'
-                  value={thisMonthToggle}
-                  checked={thisMonthToggleChecked}
-                  onChange={this.handleMonthToggle}
-                />
-              </Col>
-            </Form.Group>
+            <fieldset>
+              <Form.Group as={Row}>
+                <Form.Label column sm={2}>Date:</Form.Label>
+                <Col sm={10}>
+                  <DatePicker
+                    name='date'
+                    minDate={new Date()}
+                    clearIcon={null}
+                    value={date}
+                    format={'MM-dd-yyyy'}
+                    onChange={this.handleDateChange}
+                  />
+                  <Form.Check
+                    type='checkbox'
+                    inline label='This Week'
+                    name='thisWeekToggle'
+                    value={thisWeekToggle}
+                    checked={thisWeekToggleChecked}
+                    onChange={this.handleWeekToggle}
+                  />
+                  <Form.Check
+                    type='checkbox'
+                    inline label='This Month'
+                    name='thisMonthToggle'
+                    value={thisMonthToggle}
+                    checked={thisMonthToggleChecked}
+                    onChange={this.handleMonthToggle}
+                  />
+                </Col>
+              </Form.Group>
+            </fieldset>
             <Form.Group as={Row}>
               <Form.Label column sm={2}>Patient:</Form.Label>
               <Col sm={10}>
