@@ -100,7 +100,7 @@ class DoctorProfile extends Component {
         <hr></hr>
         <Form onSubmit={this.handleUpdateDoctor}>
           <Accordion defaultActiveKey='0'>
-            <Card>
+            <Card style={{ borderColor: '#00bd9c' }}>
               <Accordion.Toggle as={Card.Header} eventKey="0">
                 Basic Information
               </Accordion.Toggle>
@@ -226,7 +226,7 @@ class DoctorProfile extends Component {
           </Accordion>
           <Row className='mt-2'>
             <Button
-              variant="primary"
+              variant="secondary"
               type="submit"
               className="ml-auto mr-2"
             >

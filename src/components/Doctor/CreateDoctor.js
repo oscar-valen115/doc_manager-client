@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/Row'
-import styled from 'styled-components'
+// import styled from 'styled-components'
 import { createDoctor, getDoctorsFromApi } from '../../api/doctor'
 import Accordion from 'react-bootstrap/Accordion'
 import Card from 'react-bootstrap/Card'
@@ -69,7 +69,7 @@ class CreateDoctor extends Component {
         <hr />
         <Form onSubmit={this.onCreateDoctor}>
           <Accordion defaultActiveKey='0'>
-            <Card>
+            <Card style={{ borderColor: '#00bd9c' }}>
               <Accordion.Toggle as={Card.Header} eventKey="0">
                 Basic Information
               </Accordion.Toggle>
@@ -129,13 +129,13 @@ class CreateDoctor extends Component {
             </Card>
           </Accordion>
           <Row className='mt-2'>
-            <StyledButton
-              variant="primary"
+            <Button
+              variant='secondary'
               type="submit"
               className="ml-auto mr-2"
             >
               Add
-            </StyledButton>
+            </Button>
             <Button
               variant='danger'
               type='button'
@@ -151,9 +151,9 @@ class CreateDoctor extends Component {
   }
 }
 
-const StyledButton = styled(Button)`
- background-color: #00bd9c;
-`
+// const StyledButton = styled(Button)`
+//  background-color: #00bd9c;
+// `
 // const StyledForm = styled(Form)`
 //   background-color: #dde5ee;
 // `
